@@ -1,12 +1,23 @@
-# Config and stuff I've installed
+# Dotfiles
+
+Repo for backing up (macOS) dotfiles.
+
+Also to remind what to install on new machine.
 
 ## Software
 
-- iterm2
-- zsh
-- zsh-autosuggestions
-- tmux
-- git-delta
+Relevant command line software I've installed.
+
+- `iterm2`
+- `brew`
+- `ripgrep`
+- `zsh-autosuggestions`
+- `neovim`
+  - See `configurations/.../.config/nvim/README.md`
+- `tmux`
+- `git-delta`
+- `pyenv`
+- `n`
 
 ## UI
 
