@@ -11,7 +11,9 @@ Relevant command line software I've installed.
 - `iterm2`
 - `brew`
 - `ripgrep`
+- `oh-my-zsh`
 - `zsh-autosuggestions`
+- `zsh-syntax-highlighting`
 - `neovim`
   - See `configurations/.../.config/nvim/README.md`
 - `tmux`
