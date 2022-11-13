@@ -19,7 +19,8 @@ Relevant command line software I've installed.
 - `pyenv`
 - `n`
 
-## UI
+## TUI
 
+- FiraCode Nerd Font
 - starship prompt with NerdFont icons preset
-- Tokyonight colorscheme for iterm2
+- `tokyonight.nvim` colorscheme for iterm2
