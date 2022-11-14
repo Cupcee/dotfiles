@@ -35,7 +35,7 @@ return packer.startup({
 			"tpope/vim-sensible",
 			"tpope/vim-surround",
 			"tpope/vim-repeat",
-			"tpope/vim-commentary",
+			-- "tpope/vim-commentary",
 		})
 
 		-- treesitter
@@ -111,6 +111,13 @@ return packer.startup({
 		use({
 			"nvim-telescope/telescope-frecency.nvim",
 			requires = { "nvim-telescope/telescope.nvim", "kkharji/sqlite.lua" },
+		})
+
+		use({
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
 		})
 
 		-- ui

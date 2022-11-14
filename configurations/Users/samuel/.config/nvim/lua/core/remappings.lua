@@ -6,25 +6,31 @@ km.set("n", "<SPACE>", "<Nop>")
 km.set("n", "<SPACE>o", "<Nop>")
 
 km.set("i", "fd", "<Esc>")
+
+km.set("", ")", "}")
+km.set("", "(", "{")
+
+-- auto center screen after navigation
+vim.cmd([[
+  nnoremap <C-u> <C-u>zz
+  nnoremap <C-d> <C-d>zz
+  nnoremap } }zz
+  nnoremap { {zz
+  nnoremap n nzz
+  nnoremap N Nzz
+  nnoremap <C-j> <C-e>j
+  nnoremap <C-k> <C-y>k
+]])
+
 -- u is too far away
 km.set("", "<C-f>", "<C-u>")
+
 km.set("n", "<leader>h", ":set hlsearch!<CR>")
 
 -- keep visual mode selection after shifting
 vim.cmd([[
   :vnoremap < <gv
   :vnoremap > >gv
-]])
-
-km.set("", ")", "}")
-km.set("", "(", "{")
-
--- NOTE: for practicing without arrow keys
-vim.cmd([[
-  nnoremap <Up> <Nop>
-  nnoremap <Down> <Nop>
-  nnoremap <Left> <Nop>
-  nnoremap <Right> <Nop>
 ]])
 
 -- window splitting
@@ -107,13 +113,3 @@ end, silent)
 km.set("n", "<leader>4", function()
 	harpoon_ui.nav_file(4)
 end, silent)
-
--- Copilot
--- km.set("n", "<leader>c", "<cmd>Copilot panel<cr><C-w>T")
--- km.set("n", "<leader>cs", "<cmd>Copilot status<cr>")
--- vim.cmd([[
---   imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")
---   imap <silent><script><expr> <C-n> copilot#Next()
---   imap <silent><script><expr> <C-N> copilot#Previous()
---   let g:copilot_no_tab_map = v:true
--- ]])

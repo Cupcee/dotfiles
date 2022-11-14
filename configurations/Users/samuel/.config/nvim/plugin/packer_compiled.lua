@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/Users/samuel/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/Users/samuel/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -105,7 +111,7 @@ _G.packer_plugins = {
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["copilot.lua"] = {
-    config = { "\27LJ\2\né\4\0\0\6\0\20\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0005\4\t\0=\4\5\3=\3\n\0025\3\v\0=\3\f\0026\3\r\0009\3\14\0039\3\15\3'\5\16\0B\3\2\2'\4\17\0&\3\4\3=\3\18\0024\3\0\0=\3\19\2B\0\2\1K\0\1\0\26server_opts_overrides\24plugin_manager_path\22/site/pack/packer\tdata\fstdpath\afn\bvim\14filetypes\1\0\t\bcvs\1\bsvn\1\rhgcommit\1\14gitrebase\1\14gitcommit\1\thelp\1\rmarkdown\1\tyaml\1\6.\1\15suggestion\1\0\4\tprev\n<C-N>\tnext\n<C-n>\fdismiss\n<C-d>\vaccept\n<C-a>\1\0\3\fenabled\2\17auto_trigger\2\rdebounce\3K\npanel\1\0\1\25copilot_node_command\tnode\vkeymap\1\0\5\frefresh\agr\14jump_next\6)\topen\n<C-p>\14jump_prev\6(\vaccept\t<CR>\1\0\2\fenabled\2\17auto_refresh\1\nsetup\fcopilot\frequire-\1\0\4\0\3\0\0066\0\0\0009\0\1\0003\2\2\0)\3d\0B\0\3\1K\0\1\0\0\rdefer_fn\bvim\0" },
+    config = { "\27LJ\2\né\4\0\0\6\0\20\0\0276\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0005\4\t\0=\4\5\3=\3\n\0025\3\v\0=\3\f\0026\3\r\0009\3\14\0039\3\15\3'\5\16\0B\3\2\2'\4\17\0&\3\4\3=\3\18\0024\3\0\0=\3\19\2B\0\2\1K\0\1\0\26server_opts_overrides\24plugin_manager_path\22/site/pack/packer\tdata\fstdpath\afn\bvim\14filetypes\1\0\t\bcvs\1\bsvn\1\rhgcommit\1\14gitrebase\1\14gitcommit\1\thelp\1\rmarkdown\1\tyaml\1\6.\1\15suggestion\1\0\4\tprev\n<C-N>\vaccept\n<C-a>\tnext\n<C-n>\fdismiss\n<C-d>\1\0\3\17auto_trigger\2\rdebounce\3K\fenabled\2\npanel\1\0\1\25copilot_node_command\tnode\vkeymap\1\0\5\14jump_prev\6(\vaccept\t<CR>\topen\n<C-p>\frefresh\agr\14jump_next\6)\1\0\2\17auto_refresh\1\fenabled\2\nsetup\fcopilot\frequire-\1\0\4\0\3\0\0066\0\0\0009\0\1\0003\2\2\0)\3d\0B\0\3\1K\0\1\0\0\rdefer_fn\bvim\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -297,11 +303,6 @@ _G.packer_plugins = {
     path = "/Users/samuel/.local/share/nvim/site/pack/packer/opt/vim-be-good",
     url = "https://github.com/ThePrimeagen/vim-be-good"
   },
-  ["vim-commentary"] = {
-    loaded = true,
-    path = "/Users/samuel/.local/share/nvim/site/pack/packer/start/vim-commentary",
-    url = "https://github.com/tpope/vim-commentary"
-  },
   ["vim-repeat"] = {
     loaded = true,
     path = "/Users/samuel/.local/share/nvim/site/pack/packer/start/vim-repeat",
@@ -325,6 +326,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
