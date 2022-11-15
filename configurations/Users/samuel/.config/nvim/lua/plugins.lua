@@ -95,6 +95,15 @@ return packer.startup({
 			end,
 		})
 
+		-- motion plugins
+		use("ggandor/leap.nvim")
+		use({
+			"ggandor/flit.nvim",
+			config = function()
+				require("flit").setup()
+			end,
+		})
+
 		-- org mode
 		use({ "nvim-orgmode/orgmode" })
 		use({ "akinsho/org-bullets.nvim" })

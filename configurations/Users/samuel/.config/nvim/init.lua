@@ -4,6 +4,7 @@ require("impatient")
 require("plugins.treesitter")
 require("treesitter-context").setup()
 
+require("leap").add_default_mappings()
 require("plugins.neogit")
 require("plugins.telescope-frecency")
 require("plugins.lualine")
