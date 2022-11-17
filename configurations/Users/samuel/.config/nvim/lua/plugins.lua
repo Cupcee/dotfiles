@@ -45,7 +45,8 @@ return packer.startup({
 				require("nvim-treesitter.install").update({ with_sync = true })
 			end,
 		})
-		use({ "nvim-treesitter/nvim-treesitter-context" })
+		use({ "nvim-treesitter/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter" })
+		use({ "RRethy/nvim-treesitter-textsubjects", requires = "nvim-treesitter/nvim-treesitter" })
 
 		--use("github/copilot.vim")
 		use({
@@ -53,56 +54,19 @@ return packer.startup({
 			event = "VimEnter",
 			config = function()
 				vim.defer_fn(function()
-					require("copilot").setup({
-						panel = {
-							enabled = true,
-							auto_refresh = false,
-							keymap = {
-								jump_prev = "(",
-								jump_next = ")",
-								accept = "<CR>",
-								refresh = "gr",
-								open = "<C-p>",
-							},
-						},
-						suggestion = {
-							enabled = true,
-							auto_trigger = true,
-							debounce = 75,
-							keymap = {
-								accept = "<C-a>",
-								next = "<C-n>",
-								prev = "<C-N>",
-								dismiss = "<C-d>",
-							},
-						},
-						filetypes = {
-							yaml = false,
-							markdown = false,
-							help = false,
-							gitcommit = false,
-							gitrebase = false,
-							hgcommit = false,
-							svn = false,
-							cvs = false,
-							["."] = false,
-						},
-						copilot_node_command = "node", -- Node version must be < 18
-						plugin_manager_path = vim.fn.stdpath("data") .. "/site/pack/packer",
-						server_opts_overrides = {},
-					})
+					require("plugins.copilot")
 				end, 100)
 			end,
 		})
 
 		-- motion plugins
-		use("ggandor/leap.nvim")
-		use({
-			"ggandor/flit.nvim",
-			config = function()
-				require("flit").setup()
-			end,
-		})
+		-- use("ggandor/leap.nvim")
+		-- use({
+		-- 	"ggandor/flit.nvim",
+		-- 	config = function()
+		-- 		require("flit").setup()
+		-- 	end,
+		-- })
 
 		-- org mode
 		use({ "nvim-orgmode/orgmode" })

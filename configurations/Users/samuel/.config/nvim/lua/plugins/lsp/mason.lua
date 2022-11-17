@@ -10,6 +10,7 @@ require("mason-lspconfig").setup({
 		"clangd",
 		"terraformls",
 		"gopls",
+		"bashls",
 	},
 	automatic_installation = true,
 })
