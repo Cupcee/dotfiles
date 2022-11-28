@@ -147,3 +147,6 @@ alias ngit="nvim -c 'Neogit kind=replace'"
 
 # add nimble to path
 export PATH=/Users/samuel/.nimble/bin:$PATH
+
+# add rust to path
+export PATH="$HOME/.cargo/bin:$PATH"

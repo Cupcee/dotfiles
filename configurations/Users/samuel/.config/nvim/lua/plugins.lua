@@ -93,6 +93,13 @@ return packer.startup({
 			end,
 		})
 
+		use({
+			"lewis6991/gitsigns.nvim",
+			config = function()
+				require("gitsigns").setup()
+			end,
+		})
+
 		-- ui
 		use("MunifTanjim/nui.nvim")
 		-- use("rcarriga/nvim-notify")

@@ -11,6 +11,7 @@ require("mason-lspconfig").setup({
 		"terraformls",
 		"gopls",
 		"bashls",
+		"rust_analyzer",
 	},
 	automatic_installation = true,
 })
@@ -26,6 +27,7 @@ require("mason-null-ls").setup({
 		"clang_format",
 		"markdownlint",
 		"gofmt",
+		"rustfmt",
 	},
 	automatic_installation = true,
 })

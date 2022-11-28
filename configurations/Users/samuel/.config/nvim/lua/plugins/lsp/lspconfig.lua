@@ -126,3 +126,9 @@ lspconfig["bashls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+-- rust lsp
+lspconfig["rust_analyzer"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})

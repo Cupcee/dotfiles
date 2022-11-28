@@ -17,23 +17,20 @@ null_ls.setup({
 	sources = {
 		--  to disable file types use
 		--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
-		-- PYTHON
 		formatting.black,
 		formatting.isort.with({ extra_args = { "--profile", "black" } }),
 		diagnostics.flake8.with({ extra_args = { "--max-line-length=120", "--extend-ignore=E203" } }),
-		-- JS/TS
-		formatting.prettierd, -- js/ts formatter
 		formatting.stylua, -- lua formatter
+		formatting.prettierd, -- js/ts formatter
 		diagnostics.eslint_d.with({ -- js/ts linter
 			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
 			condition = function(utils)
 				return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
 			end,
 		}),
-		-- markdown
 		diagnostics.markdownlint,
-		-- go
 		formatting.gofmt,
+		formatting.rustfmt,
 	},
 	-- configure format on save
 	on_attach = function(current_client, bufnr)
