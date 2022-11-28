@@ -17,8 +17,8 @@ null_ls.setup({
 	sources = {
 		--  to disable file types use
 		--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
-		formatting.black,
 		formatting.isort.with({ extra_args = { "--profile", "black" } }),
+		formatting.black,
 		diagnostics.flake8.with({ extra_args = { "--max-line-length=120", "--extend-ignore=E203" } }),
 		formatting.stylua, -- lua formatter
 		formatting.prettierd, -- js/ts formatter

@@ -150,3 +150,15 @@ export PATH=/Users/samuel/.nimble/bin:$PATH
 
 # add rust to path
 export PATH="$HOME/.cargo/bin:$PATH"
+
+function nvimvenv {
+  if [[ -e "$VIRTUAL_ENV" && -f "$VIRTUAL_ENV/bin/activate" ]]; then
+    source "$VIRTUAL_ENV/bin/activate"
+    command nvim "$@"
+    # deactivate
+  else
+    command nvim "$@"
+  fi
+}
+
+alias nvim=nvimvenv
