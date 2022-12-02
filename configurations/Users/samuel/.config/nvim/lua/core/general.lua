@@ -38,3 +38,11 @@ vim.cmd([[
 vim.cmd([[
   au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=200}
 ]])
+
+-- neovide options
+if vim.g.neovide then
+	-- vim.g.neovide_cursor_vfx_mode = "railgun"
+	opt.guifont = "FiraCode Nerd Font:h18"
+	vim.g.neovide_cursor_animation_length = 0.02
+	vim.g.neovide_hide_mouse_when_typing = true
+end

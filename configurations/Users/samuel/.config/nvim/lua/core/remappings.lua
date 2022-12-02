@@ -113,3 +113,18 @@ end, silent)
 km.set("n", "<C-4>", function()
 	harpoon_ui.nav_file(4)
 end, silent)
+
+if vim.g.neovide then
+	vim.cmd([[
+    map <D-v> "+p<CR>
+    map! <D-v> <C-R>+
+    tmap <D-v> <C-R>+
+    vmap <D-c> "+y<CR>
+    map <D-d> <C-d>
+    map <D-f> <C-f>
+    map <D-w> <C-w>
+    nnoremap <D-a> <C-a>
+    map <D-n> <C-n>
+    map <D-N> <C-N>
+  ]])
+end

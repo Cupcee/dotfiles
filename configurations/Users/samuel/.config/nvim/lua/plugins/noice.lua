@@ -1,15 +1,18 @@
 require("noice").setup({
 	cmdline = {
-		view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+		view = "cmdline",
 	},
 	lsp = {
 		progress = {
-			enabled = false,
+			enabled = true,
 		},
+	},
+	messages = {
+		view_warn = false,
 	},
 	routes = {
 		{
-			view = "notify",
+			view = "mini",
 			filter = { event = "msg_showmode" },
 		},
 		{
