@@ -1,2 +1,3 @@
 -- use colorscheme
-vim.cmd("colorscheme tokyonight-storm")
+vim.opt.background = "dark"
+vim.cmd.colorscheme("tokyonight")

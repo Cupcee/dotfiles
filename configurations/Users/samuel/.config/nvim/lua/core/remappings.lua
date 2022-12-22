@@ -20,10 +20,12 @@ vim.cmd([[
   nnoremap N Nzz
   nnoremap <C-j> <C-e>j
   nnoremap <C-k> <C-y>k
+  nnoremap G Gzz
 ]])
 
 -- u is too far away
-km.set("", "<C-f>", "<C-u>")
+km.set("n", "<C-f>", "<C-u>")
+km.set("v", "<C-f>", "<C-u>")
 
 km.set("n", "<leader>h", ":set hlsearch!<CR>")
 

@@ -1,10 +1,11 @@
-require("plugins")
-require("impatient")
+require("lazyplugins")
+--require("impatient")
 
 require("plugins.treesitter")
 require("treesitter-context").setup()
 
 require("plugins.neogit")
+require("plugins.neorg")
 require("plugins.telescope-frecency")
 require("plugins.lualine")
 require("plugins.indent-blankline")
@@ -16,9 +17,6 @@ require("plugins.neotree")
 
 require("plugins.nvim-cmp")
 require("nvim-autopairs").setup()
-
-require("plugins.orgmode")
-require("org-bullets").setup()
 
 require("plugins.lsp.mason")
 require("plugins.lsp.lspconfig")

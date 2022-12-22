@@ -4,7 +4,7 @@ require("noice").setup({
 	},
 	lsp = {
 		progress = {
-			enabled = true,
+			enabled = false,
 		},
 	},
 	messages = {
