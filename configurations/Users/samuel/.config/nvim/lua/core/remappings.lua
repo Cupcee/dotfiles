@@ -43,30 +43,30 @@ km.set("n", "<leader>wv", ":vsplit<CR>")
 km.set("n", "<leader>bk", ":bd<CR>")
 km.set("n", "<leader>wk", ":close<CR>")
 
--- remap fuzzy file commands
-local telescope_status, telescope = pcall(require, "telescope.builtin")
-if telescope_status then
-	km.set("n", "<leader>F", telescope.find_files, {})
-	km.set("n", "<leader>G", telescope.live_grep, {})
-	km.set("n", "<leader>bb", telescope.buffers, {})
-end
-
 -- use tab to switch between buffers
 km.set("n", "<tab>", "<C-6>", { silent = true })
 
 -- Neotree
 km.set("n", "<leader>op", ":Neotree reveal<CR>")
 
--- neogit
-local neogit_status, neogit = pcall(require, "neogit")
-if neogit_status then
-	km.set("n", "<leader>gg", function()
-		neogit.open()
-	end)
-	km.set("n", "<leader>gc", function()
-		neogit.open({ "commit" })
-	end)
-end
+-- -- neogit
+-- local neogit_status, neogit = pcall(require, "neogit")
+-- if neogit_status then
+-- 	km.set("n", "<leader>gg", function()
+-- 		neogit.open()
+-- 	end)
+-- 	km.set("n", "<leader>gc", function()
+-- 		neogit.open({ "commit" })
+-- 	end)
+-- end
+
+-- remap fuzzy file commands
+-- local telescope_status, telescope = pcall(require, "telescope.builtin")
+-- if telescope_status then
+-- 	km.set("n", "<leader>F", telescope.find_files, {})
+-- 	km.set("n", "<leader>G", telescope.live_grep, {})
+-- 	km.set("n", "<leader>bb", telescope.buffers, {})
+-- end
 
 -- todo-comments
 local tdc_status, tdc = pcall(require, "todo-comments")

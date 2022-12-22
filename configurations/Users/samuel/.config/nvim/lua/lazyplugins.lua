@@ -15,8 +15,6 @@ vim.opt.runtimepath:prepend(lazypath)
 vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappings are correct
 
 require("lazy").setup({
-	"wbthomason/packer.nvim",
-
 	"nvim-lua/plenary.nvim",
 
 	"tpope/vim-surround",
@@ -44,8 +42,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{ "kkharji/sqlite.lua" }, -- for telescope-frecency
-
 	-- file finder
 	{
 		"nvim-telescope/telescope.nvim",
@@ -55,6 +51,15 @@ require("lazy").setup({
 			"nvim-telescope/telescope-frecency.nvim",
 			"kkharji/sqlite.lua",
 		},
+		cmd = { "Telescope" },
+		init = function()
+			vim.keymap.set("n", "<leader>F", ":Telescope find_files<cr>", {})
+			vim.keymap.set("n", "<leader>G", ":Telescope live_grep<cr>", {})
+			vim.keymap.set("n", "<leader>bb", ":Telescope buffers<cr>", {})
+		end,
+		config = function()
+			require("telescope").load_extension("frecency")
+		end,
 	},
 
 	{
@@ -87,14 +92,57 @@ require("lazy").setup({
 			"MunifTanjim/nui.nvim",
 			"s1n7ax/nvim-window-picker",
 		},
+		cmd = { "Neotree reveal", "Neotre toggle" },
+		config = function()
+			require("plugins.neotree")
+		end,
 	},
 
 	{
 		"nvim-neorg/neorg",
 		build = ":Neorg sync-parsers",
+		ft = "norg",
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {},
+					["core.norg.concealer"] = {
+						config = {
+							icon_preset = "diamond",
+							folds = false,
+						},
+					},
+					["core.norg.completion"] = {
+						config = {
+							engine = "nvim-cmp",
+						},
+					},
+					["core.norg.dirman"] = {
+						config = {
+							workspaces = {
+								work = "~/notes/work",
+								home = "~/notes/home",
+							},
+						},
+					},
+				},
+			})
+		end,
 	},
 
-	{ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
+	{
+		"TimUntersberger/neogit",
+		requires = "nvim-lua/plenary.nvim",
+		cmd = "Neogit",
+		init = function()
+			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>")
+		end,
+		config = function()
+			require("neogit").setup({
+				disable_commit_confirmation = true,
+			})
+		end,
+	},
 	{ "goolord/alpha-nvim", requires = "kyazdani42/nvim-web-devicons" },
 	{ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" },
 	{ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons", cmd = "TroubleToggle" },
@@ -111,7 +159,6 @@ require("lazy").setup({
 	-- autocomplete
 	"windwp/nvim-autopairs",
 
-	"windwp/nvim-ts-autotag",
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -119,13 +166,14 @@ require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
 		},
+		config = function()
+			require("plugins.nvim-cmp")
+		end,
 	},
-
-	-- snippets
-	"L3MON4D3/LuaSnip",
-	{ "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip", "hrsh7th/nvim-cmp" } },
-	"rafamadriz/friendly-snippets",
 
 	-- lsp server/format/lint installer
 	{
@@ -140,7 +188,7 @@ require("lazy").setup({
 	-- { "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
 	{ "glepnir/lspsaga.nvim", branch = "main" },
-	"jose-elias-alvarez/typescript.nvim",
+	{ "jose-elias-alvarez/typescript.nvim" },
 	"onsails/lspkind.nvim",
 
 	-- format / lint
