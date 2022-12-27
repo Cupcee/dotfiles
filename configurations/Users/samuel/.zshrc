@@ -160,5 +160,19 @@ function nvimvenv {
     command nvim "$@"
   fi
 }
+function neovidevenv {
+  if [[ -e "$VIRTUAL_ENV" && -f "$VIRTUAL_ENV/bin/activate" ]]; then
+    source "$VIRTUAL_ENV/bin/activate"
+    command neovide "$@"
+    # deactivate
+  else
+    command neovide "$@"
+  fi
+}
 
 alias nvim=nvimvenv
+alias neovide=neovidevenv
+
+export GOPATH=$HOME/go
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin

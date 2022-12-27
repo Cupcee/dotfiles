@@ -23,29 +23,28 @@ require("lazy").setup({
 	-- treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
+		event = "BufReadPost",
+		build = ":TSUpdate",
+		config = function()
+			require("plugins.treesitter")
+			require("treesitter-context").setup()
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-context",
-			"RRethy/nvim-treesitter-textsubjects",
 		},
 	},
 
 	{
 		"zbirenbaum/copilot.lua",
-		event = "VimEnter",
+		event = "VeryLazy",
 		config = function()
-			vim.defer_fn(function()
-				require("plugins.copilot")
-			end, 100)
+			require("plugins.copilot")
 		end,
 	},
 
-	-- file finder
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		version = "0.1.0",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-frecency.nvim",
@@ -71,17 +70,21 @@ require("lazy").setup({
 
 	{
 		"lewis6991/gitsigns.nvim",
+		event = "BufReadPre",
 		config = function()
-			require("gitsigns").setup()
+			require("gitsigns").setup({
+				trouble = false, -- not needed and this allows easier lazy loading
+			})
 		end,
 	},
 
-	-- ui
-	"MunifTanjim/nui.nvim",
-	-- use("rcarriga/nvim-notify")
 	{
 		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
+		config = function()
+			require("plugins.lualine")
+		end,
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
@@ -92,47 +95,19 @@ require("lazy").setup({
 			"MunifTanjim/nui.nvim",
 			"s1n7ax/nvim-window-picker",
 		},
-		cmd = { "Neotree reveal", "Neotre toggle" },
+		cmd = { "Neotree reveal", "Neotree toggle" },
+		init = function()
+			vim.keymap.set("n", "<leader>op", ":Neotree reveal<CR>")
+		end,
 		config = function()
+			require("plugins.window-picker")
 			require("plugins.neotree")
 		end,
 	},
 
 	{
-		"nvim-neorg/neorg",
-		build = ":Neorg sync-parsers",
-		ft = "norg",
-		config = function()
-			require("neorg").setup({
-				load = {
-					["core.defaults"] = {},
-					["core.norg.concealer"] = {
-						config = {
-							icon_preset = "diamond",
-							folds = false,
-						},
-					},
-					["core.norg.completion"] = {
-						config = {
-							engine = "nvim-cmp",
-						},
-					},
-					["core.norg.dirman"] = {
-						config = {
-							workspaces = {
-								work = "~/notes/work",
-								home = "~/notes/home",
-							},
-						},
-					},
-				},
-			})
-		end,
-	},
-
-	{
 		"TimUntersberger/neogit",
-		requires = "nvim-lua/plenary.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = "Neogit",
 		init = function()
 			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>")
@@ -143,21 +118,77 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "goolord/alpha-nvim", requires = "kyazdani42/nvim-web-devicons" },
-	{ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" },
-	{ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons", cmd = "TroubleToggle" },
+
+	{
+		"goolord/alpha-nvim",
+		config = function()
+			require("plugins.dashboard")
+		end,
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+	},
+
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		cmd = { "TodoTrouble", "TodoTelescope" },
+		event = "BufReadPost",
+		config = function()
+			local tdc = require("todo-comments")
+			tdc.setup()
+			vim.keymap.set("n", "<leader>tf", ":TodoQuickFix<CR>")
+			vim.keymap.set("n", "<leader>tl", ":TodoLocList<CR>")
+			vim.keymap.set("n", "<leader>tt", ":TodoTelescope<CR>")
+			vim.keymap.set("n", "<leader>tn", function()
+				tdc.jump_next()
+			end)
+			vim.keymap.set("n", "<leader>tp", function()
+				tdc.jump_prev()
+			end)
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		cmd = "TroubleToggle",
+		init = function()
+			local trouble_km_cfg = { silent = true, noremap = true }
+			vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>", trouble_km_cfg)
+			vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<CR>", trouble_km_cfg)
+			vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", trouble_km_cfg)
+			vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", trouble_km_cfg)
+			vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", trouble_km_cfg)
+			vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", trouble_km_cfg)
+			vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", trouble_km_cfg)
+		end,
+		config = function()
+			require("trouble").setup()
+		end,
+	},
 	{
 		"folke/noice.nvim",
+		config = function()
+			require("plugins.noice")
+		end,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			-- "rcarriga/nvim-notify",
 		},
 	},
-	"lukas-reineke/indent-blankline.nvim",
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("plugins.indent-blankline")
+		end,
+	},
 	{ "ThePrimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
 
 	-- autocomplete
-	"windwp/nvim-autopairs",
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup()
+		end,
+	},
 
 	{
 		"hrsh7th/nvim-cmp",
@@ -178,30 +209,47 @@ require("lazy").setup({
 	-- lsp server/format/lint installer
 	{
 		"williamboman/mason.nvim",
+		config = function()
+			require("plugins.lsp.mason")
+			require("plugins.lsp.lspconfig")
+			require("plugins.lsp.lspsaga")
+			require("plugins.lsp.null-ls")
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"jayp0521/mason-null-ls.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			{ "glepnir/lspsaga.nvim", branch = "main" },
+			"neovim/nvim-lspconfig",
+			"jose-elias-alvarez/typescript.nvim",
+			"onsails/lspkind.nvim",
 		},
 	},
-	-- { "williamboman/mason-lspconfig.nvim" },
-	{ "neovim/nvim-lspconfig" },
-	{ "glepnir/lspsaga.nvim", branch = "main" },
-	{ "jose-elias-alvarez/typescript.nvim" },
-	"onsails/lspkind.nvim",
-
-	-- format / lint
-	-- { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-	-- {
-	-- 	"jayp0521/mason-null-ls.nvim",
-	-- 	dependencies = { "williamboman/mason.nvim", "jose-elias-alvarez/null-ls.nvim" },
-	-- },
 
 	-- file specific
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
-	{ "ThePrimeagen/vim-be-good", cmd = { "VimBeGood" } },
-
-	"folke/tokyonight.nvim",
+	{
+		"folke/tokyonight.nvim",
+		config = function()
+			require("plugins.tokyonight")
+		end,
+	},
+}, {
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"matchparen",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+				"nvim-treesitter-textobjects",
+			},
+		},
+	},
 })

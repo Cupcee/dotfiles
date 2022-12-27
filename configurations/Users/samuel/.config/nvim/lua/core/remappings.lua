@@ -46,52 +46,6 @@ km.set("n", "<leader>wk", ":close<CR>")
 -- use tab to switch between buffers
 km.set("n", "<tab>", "<C-6>", { silent = true })
 
--- Neotree
-km.set("n", "<leader>op", ":Neotree reveal<CR>")
-
--- -- neogit
--- local neogit_status, neogit = pcall(require, "neogit")
--- if neogit_status then
--- 	km.set("n", "<leader>gg", function()
--- 		neogit.open()
--- 	end)
--- 	km.set("n", "<leader>gc", function()
--- 		neogit.open({ "commit" })
--- 	end)
--- end
-
--- remap fuzzy file commands
--- local telescope_status, telescope = pcall(require, "telescope.builtin")
--- if telescope_status then
--- 	km.set("n", "<leader>F", telescope.find_files, {})
--- 	km.set("n", "<leader>G", telescope.live_grep, {})
--- 	km.set("n", "<leader>bb", telescope.buffers, {})
--- end
-
--- todo-comments
-local tdc_status, tdc = pcall(require, "todo-comments")
-if tdc_status then
-	km.set("n", "<leader>tf", ":TodoQuickFix<CR>")
-	km.set("n", "<leader>tl", ":TodoLocList<CR>")
-	km.set("n", "<leader>tt", ":TodoTelescope<CR>")
-	km.set("n", "<leader>xt", ":TodoTrouble<CR>")
-	km.set("n", "<leader>tn", function()
-		tdc.jump_next()
-	end)
-	km.set("n", "<leader>tp", function()
-		tdc.jump_prev()
-	end)
-end
-
--- Trouble
-local trouble_km_cfg = { silent = true, noremap = true }
-km.set("n", "<leader>xx", "<cmd>TroubleToggle<CR>", trouble_km_cfg)
-km.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", trouble_km_cfg)
-km.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", trouble_km_cfg)
-km.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", trouble_km_cfg)
-km.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", trouble_km_cfg)
-km.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", trouble_km_cfg)
-
 -- Harpoon
 local harpoon_mark = require("harpoon.mark")
 local harpoon_ui = require("harpoon.ui")
@@ -130,3 +84,5 @@ if vim.g.neovide then
     map <D-N> <C-N>
   ]])
 end
+
+vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
