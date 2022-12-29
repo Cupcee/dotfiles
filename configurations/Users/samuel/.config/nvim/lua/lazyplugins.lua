@@ -19,6 +19,13 @@ require("lazy").setup({
 
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
+	{
+		"tpope/vim-fugitive",
+		init = function()
+			vim.api.nvim_set_keymap("", "<leader>gg", ":tab G<CR>", { noremap = true, silent = true })
+		end,
+		cmd = { "G", "Gdiffsplit" },
+	},
 
 	-- treesitter
 	{
@@ -95,27 +102,13 @@ require("lazy").setup({
 			"MunifTanjim/nui.nvim",
 			"s1n7ax/nvim-window-picker",
 		},
-		cmd = { "Neotree reveal", "Neotree toggle" },
+		cmd = { "Neotree" },
 		init = function()
 			vim.keymap.set("n", "<leader>op", ":Neotree reveal<CR>")
 		end,
 		config = function()
 			require("plugins.window-picker")
 			require("plugins.neotree")
-		end,
-	},
-
-	{
-		"TimUntersberger/neogit",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		cmd = "Neogit",
-		init = function()
-			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>")
-		end,
-		config = function()
-			require("neogit").setup({
-				disable_commit_confirmation = true,
-			})
 		end,
 	},
 
@@ -166,6 +159,7 @@ require("lazy").setup({
 	},
 	{
 		"folke/noice.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("plugins.noice")
 		end,
@@ -176,6 +170,7 @@ require("lazy").setup({
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("plugins.indent-blankline")
 		end,
@@ -184,6 +179,7 @@ require("lazy").setup({
 
 	-- autocomplete
 	{
+		event = "InsertEnter",
 		"windwp/nvim-autopairs",
 		config = function()
 			require("nvim-autopairs").setup()
@@ -200,6 +196,7 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
+			"onsails/lspkind.nvim",
 		},
 		config = function()
 			require("plugins.nvim-cmp")
@@ -211,20 +208,93 @@ require("lazy").setup({
 		"williamboman/mason.nvim",
 		config = function()
 			require("plugins.lsp.mason")
-			require("plugins.lsp.lspconfig")
-			require("plugins.lsp.lspsaga")
+			-- require("plugins.lsp.lspconfig")
+			-- require("plugins.lsp.lspsaga")
+			-- require("plugins.lsp.null-ls")
+		end,
+		-- dependencies = {
+		-- 	-- "nvim-lua/plenary.nvim",
+		-- 	-- "jayp0521/mason-null-ls.nvim",
+		-- 	-- "jose-elias-alvarez/null-ls.nvim",
+		-- 	-- "williamboman/mason-lspconfig.nvim",
+		-- 	-- { "glepnir/lspsaga.nvim", branch = "main" },
+		-- 	-- "neovim/nvim-lspconfig",
+		-- 	-- "jose-elias-alvarez/typescript.nvim",
+		-- 	-- "folke/neodev.nvim",
+		-- 	-- "onsails/lspkind.nvim",
+		-- },
+	},
+
+	{
+		event = "BufReadPre",
+		"jayp0521/mason-null-ls.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+		config = function()
+			require("mason-null-ls").setup({
+				ensure_installed = {
+					"black",
+					"isort",
+					"flake8",
+					"prettierd",
+					"eslint_d",
+					"stylua",
+					"clang_format",
+					"markdownlint",
+					"gofmt",
+					"rustfmt",
+				},
+				automatic_installation = true,
+			})
 			require("plugins.lsp.null-ls")
 		end,
+	},
+
+	{
+		"williamboman/mason-lspconfig.nvim",
+		event = "BufReadPre",
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"pyright",
+					"tsserver",
+					"html",
+					"cssls",
+					"sumneko_lua",
+					"clangd",
+					"terraformls",
+					"gopls",
+					"bashls",
+					"rust_analyzer",
+				},
+				automatic_installation = true,
+			})
+		end,
+	},
+
+	{
+		event = "BufReadPre",
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("plugins.lsp.lspconfig")
+		end,
 		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"jayp0521/mason-null-ls.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
+			"hrsh7th/cmp-nvim-lsp",
 			"williamboman/mason-lspconfig.nvim",
-			{ "glepnir/lspsaga.nvim", branch = "main" },
-			"neovim/nvim-lspconfig",
+			"folke/neodev.nvim",
 			"jose-elias-alvarez/typescript.nvim",
-			"onsails/lspkind.nvim",
 		},
+	},
+
+	{
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		event = "BufReadPre",
+		config = function()
+			require("plugins.lsp.lspsaga")
+		end,
 	},
 
 	-- file specific
@@ -232,6 +302,7 @@ require("lazy").setup({
 
 	{
 		"folke/tokyonight.nvim",
+		lazy = false,
 		config = function()
 			require("plugins.tokyonight")
 		end,

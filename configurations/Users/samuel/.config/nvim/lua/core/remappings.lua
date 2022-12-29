@@ -24,8 +24,7 @@ vim.cmd([[
 ]])
 
 -- u is too far away
-km.set("n", "<C-f>", "<C-u>")
-km.set("v", "<C-f>", "<C-u>")
+km.set({ "n", "v" }, "<C-f>", "<C-u>")
 
 km.set("n", "<leader>h", ":set hlsearch!<CR>")
 

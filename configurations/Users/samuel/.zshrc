@@ -171,7 +171,7 @@ function neovidevenv {
 }
 
 alias nvim=nvimvenv
-alias neovide=neovidevenv
+alias nvide=neovidevenv
 
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
