@@ -19,6 +19,7 @@ require("lazy").setup({
 
 	"tpope/vim-surround",
 	"tpope/vim-repeat",
+
 	{
 		"tpope/vim-fugitive",
 		init = function()
@@ -77,6 +78,7 @@ require("lazy").setup({
 
 	{
 		"lewis6991/gitsigns.nvim",
+		enabled = false,
 		event = "BufReadPre",
 		config = function()
 			require("gitsigns").setup({
@@ -142,7 +144,7 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
-		cmd = "TroubleToggle",
+		cmd = { "TroubleToggle", "Trouble" },
 		init = function()
 			local trouble_km_cfg = { silent = true, noremap = true }
 			vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>", trouble_km_cfg)
@@ -154,7 +156,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", trouble_km_cfg)
 		end,
 		config = function()
-			require("trouble").setup()
+			require("trouble").setup({
+				use_diagnostic_signs = true,
+			})
 		end,
 	},
 	{
@@ -168,6 +172,7 @@ require("lazy").setup({
 			-- "rcarriga/nvim-notify",
 		},
 	},
+
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
@@ -175,12 +180,13 @@ require("lazy").setup({
 			require("plugins.indent-blankline")
 		end,
 	},
+
 	{ "ThePrimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
 
 	-- autocomplete
 	{
-		event = "InsertEnter",
 		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		config = function()
 			require("nvim-autopairs").setup()
 		end,
@@ -203,51 +209,31 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "BufReadPre",
+		config = function()
+			require("colorizer").setup()
+		end,
+	},
+
 	-- lsp server/format/lint installer
 	{
 		"williamboman/mason.nvim",
 		config = function()
 			require("plugins.lsp.mason")
-			-- require("plugins.lsp.lspconfig")
-			-- require("plugins.lsp.lspsaga")
-			-- require("plugins.lsp.null-ls")
 		end,
-		-- dependencies = {
-		-- 	-- "nvim-lua/plenary.nvim",
-		-- 	-- "jayp0521/mason-null-ls.nvim",
-		-- 	-- "jose-elias-alvarez/null-ls.nvim",
-		-- 	-- "williamboman/mason-lspconfig.nvim",
-		-- 	-- { "glepnir/lspsaga.nvim", branch = "main" },
-		-- 	-- "neovim/nvim-lspconfig",
-		-- 	-- "jose-elias-alvarez/typescript.nvim",
-		-- 	-- "folke/neodev.nvim",
-		-- 	-- "onsails/lspkind.nvim",
-		-- },
 	},
 
 	{
-		event = "BufReadPre",
 		"jayp0521/mason-null-ls.nvim",
+		event = "BufReadPre",
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 		},
 		config = function()
-			require("mason-null-ls").setup({
-				ensure_installed = {
-					"black",
-					"isort",
-					"flake8",
-					"prettierd",
-					"eslint_d",
-					"stylua",
-					"clang_format",
-					"markdownlint",
-					"gofmt",
-					"rustfmt",
-				},
-				automatic_installation = true,
-			})
+			require("plugins.lsp.mason-null-ls")
 			require("plugins.lsp.null-ls")
 		end,
 	},
@@ -256,27 +242,13 @@ require("lazy").setup({
 		"williamboman/mason-lspconfig.nvim",
 		event = "BufReadPre",
 		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"pyright",
-					"tsserver",
-					"html",
-					"cssls",
-					"sumneko_lua",
-					"clangd",
-					"terraformls",
-					"gopls",
-					"bashls",
-					"rust_analyzer",
-				},
-				automatic_installation = true,
-			})
+			require("plugins.lsp.mason-lspconfig")
 		end,
 	},
 
 	{
-		event = "BufReadPre",
 		"neovim/nvim-lspconfig",
+		event = "BufReadPre",
 		config = function()
 			require("plugins.lsp.lspconfig")
 		end,
@@ -291,9 +263,13 @@ require("lazy").setup({
 	{
 		"glepnir/lspsaga.nvim",
 		branch = "main",
-		event = "BufReadPre",
+		cmd = "Lspsaga",
 		config = function()
-			require("plugins.lsp.lspsaga")
+			require("lspsaga").setup({
+				symbol_in_winbar = {
+					enable = false,
+				},
+			})
 		end,
 	},
 
@@ -302,9 +278,16 @@ require("lazy").setup({
 
 	{
 		"folke/tokyonight.nvim",
-		lazy = false,
+		lazy = true,
 		config = function()
 			require("plugins.tokyonight")
+		end,
+	},
+	{
+		enabled = false,
+		"rebelot/kanagawa.nvim",
+		config = function()
+			vim.cmd("colorscheme kanagawa")
 		end,
 	},
 }, {

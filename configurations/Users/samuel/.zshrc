@@ -117,7 +117,6 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 # enable vi on command line
 bindkey -v
-bindkey fd vi-cmd-mode
 fpath=($fpath "/Users/samuel/.zfunctions")
 
 # starship
@@ -143,7 +142,7 @@ if [ -f '/Users/samuel/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # neogit alias
-alias ngit="nvim -c 'Neogit kind=replace'"
+alias ngit="nvim -c 'G'"
 
 # add nimble to path
 export PATH=/Users/samuel/.nimble/bin:$PATH
@@ -176,3 +175,5 @@ alias nvide=neovidevenv
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+. $(brew --prefix)/etc/profile.d/z.sh

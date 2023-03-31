@@ -138,12 +138,12 @@ require("neo-tree").setup({
 			visible = false, -- when true, they will just be displayed differently than normal items
 			hide_dotfiles = false,
 			hide_gitignored = true,
-			hide_hidden = true, -- only works on Windows for hidden files/directories
+			hide_hidden = false, -- only works on Windows for hidden files/directories
 			hide_by_name = {
 				"node_modules",
 			},
 			hide_by_pattern = { -- uses glob style patterns
-				--"*.meta",
+				"*.ipynb",
 				--"*/src/*/tsconfig.json",
 			},
 			always_show = { -- remains visible even if other settings would normally hide it

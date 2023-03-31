@@ -21,8 +21,12 @@ null_ls.setup({
 		formatting.black,
 		diagnostics.flake8.with({ extra_args = { "--max-line-length=120", "--extend-ignore=E203" } }),
 		formatting.stylua, -- lua formatter
-		formatting.prettierd, -- js/ts formatter
-		diagnostics.eslint_d.with({ -- js/ts linter
+		formatting.prettierd.with({
+			condition = function(utils)
+				return utils.root_has_file(".prettierrc.json")
+			end,
+		}),
+		diagnostics.eslint_d.with({
 			condition = function(utils)
 				return utils.root_has_file(".eslintrc.js")
 			end,
@@ -30,6 +34,8 @@ null_ls.setup({
 		diagnostics.markdownlint,
 		formatting.gofmt,
 		formatting.rustfmt,
+		formatting.terraform_fmt,
+		formatting.xmlformat,
 	},
 
 	-- configure format on save

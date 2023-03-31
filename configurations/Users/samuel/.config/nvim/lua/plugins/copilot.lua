@@ -41,7 +41,7 @@ require("copilot").setup({
 		keymap = keymap_suggestion,
 	},
 	filetypes = {
-		yaml = false,
+		yaml = true,
 		markdown = false,
 		help = false,
 		gitcommit = false,
@@ -49,7 +49,7 @@ require("copilot").setup({
 		hgcommit = false,
 		svn = false,
 		cvs = false,
-		rust = false,
+		rust = true,
 		["."] = false,
 	},
 	copilot_node_command = "node", -- Node version must be < 18

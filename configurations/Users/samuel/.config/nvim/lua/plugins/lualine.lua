@@ -113,22 +113,29 @@ ins_left({
 	padding = { left = 1, right = 1 },
 })
 
--- ins_left({
--- 	-- filesize component
--- 	"filesize",
--- 	cond = conditions.buffer_not_empty,
--- })
+ins_left({
+	"filesize",
+	cond = conditions.buffer_not_empty,
+})
 
 ins_left({
 	"filename",
 	cond = conditions.buffer_not_empty,
 	color = { fg = colors.fg, gui = "bold" },
+	file_status = true,
+	newfile_status = true,
 	path = 1,
 })
 
--- ins_left({ "location" })
+-- ins_right({
+-- 	"filetype",
+-- 	cond = conditions.buffer_not_empty,
+-- 	colored = true,
+-- 	icon_only = false,
+-- 	icon = { align = "right" },
+-- })
 
--- ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
+-- ins_right({ "location" })
 
 ins_left({
 	"diagnostics",
@@ -143,11 +150,11 @@ ins_left({
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left({
-	function()
-		return "%="
-	end,
-})
+-- ins_left({
+-- 	function()
+-- 		return "%="
+-- 	end,
+-- })
 
 -- ins_left({
 -- 	-- Lsp server name .

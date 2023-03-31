@@ -46,6 +46,9 @@ local has_words_before = function()
 end
 
 cmp.setup({
+	view = {
+		entries = "custom",
+	},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
