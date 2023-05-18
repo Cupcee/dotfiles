@@ -4,5 +4,3 @@ require("lazyplugins")
 -- own config
 require("core.general")
 require("core.remappings")
-
-require("core.theme")

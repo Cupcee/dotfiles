@@ -8,6 +8,7 @@ require("noice").setup({
 		},
 	},
 	messages = {
+		enabled = false,
 		view_warn = false,
 	},
 	routes = {

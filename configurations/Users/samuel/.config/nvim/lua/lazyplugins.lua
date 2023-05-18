@@ -272,20 +272,28 @@ require("lazy").setup({
 			})
 		end,
 	},
-
 	-- file specific
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
 	{
 		"folke/tokyonight.nvim",
-		lazy = true,
+		enabled = false,
 		config = function()
 			require("plugins.tokyonight")
+			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
 	{
-		enabled = false,
+		"catppuccin/nvim",
+		name = "catppuccin",
+		enabled = true,
+		config = function()
+			vim.cmd.colorscheme("catppuccin")
+		end,
+	},
+	{
 		"rebelot/kanagawa.nvim",
+		enabled = false,
 		config = function()
 			vim.cmd("colorscheme kanagawa")
 		end,
