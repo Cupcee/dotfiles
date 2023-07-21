@@ -6,7 +6,7 @@ local lualine = require("lualine")
 -- stylua: ignore
 local colors = {
   bg       = '#202328',
-  fg       = '#bbc2cf',
+  fg       = '#FFFFFF',
   yellow   = '#ECBE7B',
   cyan     = '#008080',
   darkblue = '#081633',
@@ -15,7 +15,7 @@ local colors = {
   violet   = '#a9a1e1',
   magenta  = '#c678dd',
   blue     = '#51afef',
-  red      = '#ec5f67',
+  red      = '#ec5f67'
 }
 
 local conditions = {
@@ -38,7 +38,7 @@ local config = {
 		-- Disable sections and component separators
 		component_separators = "",
 		section_separators = "",
-		theme = "tokyonight",
+		theme = "everforest",
 	},
 	sections = {
 		-- these are to remove the defaults
@@ -82,8 +82,8 @@ end
 ins_left({
 	-- mode component
 	function()
-		return ""
-		-- return ""
+		-- return ""
+		return ""
 	end,
 	color = function()
 		-- auto change color according to neovims mode

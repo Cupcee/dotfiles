@@ -97,7 +97,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"kyazdani42/nvim-web-devicons",
@@ -163,6 +163,7 @@ require("lazy").setup({
 	},
 	{
 		"folke/noice.nvim",
+		enabled = false,
 		event = "VeryLazy",
 		config = function()
 			require("plugins.noice")
@@ -174,6 +175,14 @@ require("lazy").setup({
 	},
 
 	{
+		"folke/zen-mode.nvim",
+		cmd = { "ZenMode" },
+		config = function()
+			require("zen-mode").setup()
+		end,
+	},
+
+	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
 		config = function()
@@ -181,7 +190,11 @@ require("lazy").setup({
 		end,
 	},
 
-	{ "ThePrimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
+	{
+		"ThePrimeagen/harpoon",
+		enabled = true,
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 
 	-- autocomplete
 	{
@@ -259,7 +272,6 @@ require("lazy").setup({
 			"jose-elias-alvarez/typescript.nvim",
 		},
 	},
-
 	{
 		"glepnir/lspsaga.nvim",
 		branch = "main",
@@ -274,28 +286,34 @@ require("lazy").setup({
 	},
 	-- file specific
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
-
 	{
-		"folke/tokyonight.nvim",
+		"neanias/everforest-nvim",
 		enabled = false,
+		priority = 999,
 		config = function()
-			require("plugins.tokyonight")
-			vim.cmd.colorscheme("tokyonight")
+			require("everforest").setup({
+				background = "hard",
+			})
+			vim.cmd.colorscheme("everforest")
 		end,
 	},
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		enabled = true,
+		"seandewar/paragon.vim",
+		enabled = false,
+		priority = 999,
 		config = function()
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("paragon")
 		end,
 	},
 	{
 		"rebelot/kanagawa.nvim",
-		enabled = false,
+		enabled = true,
+		priority = 999,
 		config = function()
-			vim.cmd("colorscheme kanagawa")
+			require("kanagawa").setup({
+				compile = true,
+			})
+			vim.cmd.colorscheme("kanagawa")
 		end,
 	},
 }, {

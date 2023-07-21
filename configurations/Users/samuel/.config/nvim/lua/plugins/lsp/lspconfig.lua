@@ -108,3 +108,11 @@ typescript.setup({
 		on_attach = on_attach,
 	},
 })
+
+-- setup gdscript
+lspconfig.gdscript.setup({
+	server = {
+		capabilities = capabilities,
+		on_attach = on_attach,
+	},
+})

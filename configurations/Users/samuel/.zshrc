@@ -177,3 +177,11 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 . $(brew --prefix)/etc/profile.d/z.sh
+
+export ML_TIMEOUT_SETUP=120
+
+# rosetta terminal setup
+if [ $(arch) = "i386" ]; then
+    alias brew86="arch -x86_64 /usr/local/bin/brew"
+    alias pyenv86="arch -x86_64 pyenv"
+fi
