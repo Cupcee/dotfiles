@@ -1,9 +1,5 @@
--- enable html parser in htmldjango file
-local import_parsers, parsers = pcall(require, "nvim-treesitter.parsers")
-if import_parsers then
-	local parsername = parsers.filetype_to_parsername
-	parsername.htmldjango = "html"
-end
+-- django template support
+vim.treesitter.language.register("htmldjango", "html")
 
 require("nvim-treesitter.configs").setup({
 	-- A list of parser names, or "all"

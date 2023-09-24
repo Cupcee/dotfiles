@@ -243,6 +243,8 @@ require("lazy").setup({
 		event = "BufReadPre",
 		config = function()
 			local plugin = require("lint")
+			local flake8 = plugin.linters.flake8
+			flake8.args = vim.tbl_flatten({ flake8.args, { "--max-line-length=88", "--extend-ignore=E203" } })
 			plugin.linters_by_ft = {
 				python = { "flake8" },
 				markdown = { "markdownlint" },
