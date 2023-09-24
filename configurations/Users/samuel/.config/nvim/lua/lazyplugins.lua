@@ -11,8 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
--- example using a list of specs with the default options
-vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.mapleader = " "
 
 require("lazy").setup({
 	"nvim-lua/plenary.nvim",
@@ -28,7 +27,6 @@ require("lazy").setup({
 		cmd = { "G", "Gdiffsplit" },
 	},
 
-	-- treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
 		event = "BufReadPost",
@@ -55,35 +53,24 @@ require("lazy").setup({
 		version = "0.1.0",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-frecency.nvim",
-			"kkharji/sqlite.lua",
+			-- "nvim-telescope/telescope-frecency.nvim",
+			-- "kkharji/sqlite.lua",
 		},
 		cmd = { "Telescope" },
 		init = function()
-			vim.keymap.set("n", "<leader>F", ":Telescope find_files<cr>", {})
-			vim.keymap.set("n", "<leader>G", ":Telescope live_grep<cr>", {})
-			vim.keymap.set("n", "<leader>bb", ":Telescope buffers<cr>", {})
+			vim.keymap.set("n", "<leader>F", "<cmd>Telescope find_files<cr>", {})
+			vim.keymap.set("n", "<leader>G", "<cmd>Telescope live_grep<cr>", {})
+			vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", {})
 		end,
-		config = function()
-			require("telescope").load_extension("frecency")
-		end,
+		-- config = function()
+		-- 	require("telescope").load_extension("frecency")
+		-- end,
 	},
 
 	{
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
-		end,
-	},
-
-	{
-		"lewis6991/gitsigns.nvim",
-		enabled = false,
-		event = "BufReadPre",
-		config = function()
-			require("gitsigns").setup({
-				trouble = false, -- not needed and this allows easier lazy loading
-			})
 		end,
 	},
 
@@ -175,14 +162,6 @@ require("lazy").setup({
 	},
 
 	{
-		"folke/zen-mode.nvim",
-		cmd = { "ZenMode" },
-		config = function()
-			require("zen-mode").setup()
-		end,
-	},
-
-	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
 		config = function()
@@ -190,13 +169,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"ThePrimeagen/harpoon",
-		enabled = true,
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
-	-- autocomplete
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -230,7 +202,6 @@ require("lazy").setup({
 		end,
 	},
 
-	-- lsp server/format/lint installer
 	{
 		"williamboman/mason.nvim",
 		config = function()
@@ -284,27 +255,9 @@ require("lazy").setup({
 			})
 		end,
 	},
-	-- file specific
+
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
-	{
-		"neanias/everforest-nvim",
-		enabled = false,
-		priority = 999,
-		config = function()
-			require("everforest").setup({
-				background = "hard",
-			})
-			vim.cmd.colorscheme("everforest")
-		end,
-	},
-	{
-		"seandewar/paragon.vim",
-		enabled = false,
-		priority = 999,
-		config = function()
-			vim.cmd.colorscheme("paragon")
-		end,
-	},
+
 	{
 		"rebelot/kanagawa.nvim",
 		enabled = true,
