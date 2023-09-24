@@ -210,15 +210,48 @@ require("lazy").setup({
 	},
 
 	{
-		"jayp0521/mason-null-ls.nvim",
+		"stevearc/conform.nvim",
 		event = "BufReadPre",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
 		config = function()
-			require("plugins.lsp.mason-null-ls")
-			require("plugins.lsp.null-ls")
+			require("conform.formatters.isort").args = {
+				"--stdout",
+				"--filename",
+				"$FILENAME",
+				"-",
+				"--profile",
+				"black",
+			}
+			require("conform").setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					python = { "isort", "black" },
+					javascript = { "prettierd" },
+					go = { "gofmt" },
+					rust = { "rustfmt" },
+				},
+				format_on_save = {
+					-- timeout_ms = 500,
+					async = true,
+					lsp_fallback = true,
+				},
+			})
+		end,
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		event = "BufReadPre",
+		config = function()
+			local plugin = require("lint")
+			plugin.linters_by_ft = {
+				python = { "flake8" },
+				markdown = { "markdownlint" },
+			}
+			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				callback = function()
+					plugin.try_lint()
+				end,
+			})
 		end,
 	},
 

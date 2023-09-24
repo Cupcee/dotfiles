@@ -45,30 +45,6 @@ km.set("n", "<leader>wk", ":close<CR>")
 -- use tab to switch between buffers
 km.set("n", "<tab>", "<C-6>", { silent = true })
 
--- Harpoon
-local harpoon_mark = require("harpoon.mark")
-local harpoon_ui = require("harpoon.ui")
-local silent = { silent = true }
-
-km.set("n", "<leader>ha", function()
-	harpoon_mark.add_file()
-end, silent)
-km.set("n", "<leader>hm", function()
-	harpoon_ui.toggle_quick_menu()
-end, silent)
-km.set("n", "<leader>h1", function()
-	harpoon_ui.nav_file(1)
-end, silent)
-km.set("n", "<leader>h2", function()
-	harpoon_ui.nav_file(2)
-end, silent)
-km.set("n", "<leader>h3", function()
-	harpoon_ui.nav_file(3)
-end, silent)
-km.set("n", "<leader>h4", function()
-	harpoon_ui.nav_file(4)
-end, silent)
-
 if vim.g.neovide then
 	vim.cmd([[
     map <D-v> "+p<CR>
