@@ -50,11 +50,9 @@ require("lazy").setup({
 
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.0",
+		version = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			-- "nvim-telescope/telescope-frecency.nvim",
-			-- "kkharji/sqlite.lua",
 		},
 		cmd = { "Telescope" },
 		init = function()
@@ -62,9 +60,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>G", "<cmd>Telescope live_grep<cr>", {})
 			vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", {})
 		end,
-		-- config = function()
-		-- 	require("telescope").load_extension("frecency")
-		-- end,
 	},
 
 	{
@@ -93,7 +88,7 @@ require("lazy").setup({
 		},
 		cmd = { "Neotree" },
 		init = function()
-			vim.keymap.set("n", "<leader>op", ":Neotree reveal<CR>")
+			vim.keymap.set("n", "<leader>op", ":Neotree position=current<CR>")
 		end,
 		config = function()
 			require("plugins.window-picker")
@@ -270,6 +265,8 @@ require("lazy").setup({
 		event = "BufReadPre",
 		config = function()
 			require("plugins.lsp.lspconfig")
+			vim.o.updatetime = 250
+			vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 		end,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -286,6 +283,11 @@ require("lazy").setup({
 			require("lspsaga").setup({
 				symbol_in_winbar = {
 					enable = false,
+				},
+				finder = {
+					keys = {
+						toggle_or_open = "<Tab>",
+					},
 				},
 			})
 		end,
