@@ -160,7 +160,18 @@ require("lazy").setup({
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("plugins.indent-blankline")
+			local highlight = {
+				"CursorColumn",
+				"Whitespace",
+			}
+			require("ibl").setup({
+				indent = { highlight = highlight, char = "" },
+				whitespace = {
+					highlight = highlight,
+					remove_blankline_trail = false,
+				},
+				scope = { enabled = false },
+			})
 		end,
 	},
 
@@ -296,8 +307,18 @@ require("lazy").setup({
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
 	{
-		"rebelot/kanagawa.nvim",
+		"rose-pine/neovim",
 		enabled = true,
+		priority = 999,
+		name = "rose-pine",
+		config = function()
+			vim.cmd("colorscheme rose-pine")
+		end,
+	},
+
+	{
+		"rebelot/kanagawa.nvim",
+		enabled = false,
 		priority = 999,
 		config = function()
 			require("kanagawa").setup({
