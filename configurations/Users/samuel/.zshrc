@@ -167,3 +167,5 @@ export GOROOT="$(brew --prefix golang)/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 . $(brew --prefix)/etc/profile.d/z.sh
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
