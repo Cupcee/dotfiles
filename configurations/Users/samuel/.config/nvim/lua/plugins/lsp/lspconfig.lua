@@ -67,6 +67,7 @@ local lsp_servers = {
 	"gopls",
 	"bashls",
 	"rust_analyzer",
+	"sqlls",
 }
 
 local custom_lsp_servers = {

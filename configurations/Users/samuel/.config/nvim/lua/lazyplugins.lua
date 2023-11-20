@@ -223,7 +223,8 @@ require("lazy").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
 					python = { "isort", "black" },
-					javascript = { "prettierd" },
+					javascript = { "prettier" },
+					typescript = { "prettier" },
 					go = { "gofmt" },
 					rust = { "rustfmt" },
 				},
