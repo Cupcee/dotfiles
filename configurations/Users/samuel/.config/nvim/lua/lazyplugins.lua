@@ -84,14 +84,14 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 			"kyazdani42/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
-			"s1n7ax/nvim-window-picker",
+			-- "s1n7ax/nvim-window-picker",
 		},
 		cmd = { "Neotree" },
 		init = function()
 			vim.keymap.set("n", "<leader>op", ":Neotree position=current<CR>")
 		end,
 		config = function()
-			require("plugins.window-picker")
+			-- require("plugins.window-picker")
 			require("plugins.neotree")
 		end,
 	},
