@@ -71,23 +71,23 @@ local lsp_servers = {
 }
 
 local custom_lsp_servers = {
-	spectral = {
-		cmd = { "spectral", "--stdio" },
-		filetypes = { "yaml", "json", "yml" },
-		root_dir = lspconfig.util.root_pattern(
-			".spectral.yaml",
-			".spectral.yml",
-			".spectral.json",
-			".spectral.js",
-			"schema/*.yaml" -- for regent
-		),
-		single_file_support = true,
-		settings = {
-			enable = true,
-			run = "onType",
-			validateLanguages = { "yaml", "json", "yml" },
-		},
-	},
+	-- spectral = {
+	-- 	cmd = { "spectral", "--stdio" },
+	-- 	filetypes = { "yaml", "json", "yml" },
+	-- 	root_dir = lspconfig.util.root_pattern(
+	-- 		".spectral.yaml",
+	-- 		".spectral.yml",
+	-- 		".spectral.json",
+	-- 		".spectral.js",
+	-- 		"schema/*.yaml" -- for regent
+	-- 	),
+	-- 	single_file_support = true,
+	-- 	settings = {
+	-- 		enable = true,
+	-- 		run = "onType",
+	-- 		validateLanguages = { "yaml", "json", "yml" },
+	-- 	},
+	-- },
 }
 
 -- setup lsp servers that use default config

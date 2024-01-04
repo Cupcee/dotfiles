@@ -123,38 +123,6 @@ require("lazy").setup({
 			end)
 		end,
 	},
-	{
-		"folke/trouble.nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
-		cmd = { "TroubleToggle", "Trouble" },
-		init = function()
-			local trouble_km_cfg = { silent = true, noremap = true }
-			vim.keymap.set("n", "<leader>xt", ":TodoTrouble<CR>", trouble_km_cfg)
-			vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<CR>", trouble_km_cfg)
-			vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", trouble_km_cfg)
-			vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", trouble_km_cfg)
-			vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", trouble_km_cfg)
-			vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", trouble_km_cfg)
-			vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", trouble_km_cfg)
-		end,
-		config = function()
-			require("trouble").setup({
-				use_diagnostic_signs = true,
-			})
-		end,
-	},
-	{
-		"folke/noice.nvim",
-		enabled = false,
-		event = "VeryLazy",
-		config = function()
-			require("plugins.noice")
-		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			-- "rcarriga/nvim-notify",
-		},
-	},
 
 	{
 		"lukas-reineke/indent-blankline.nvim",

@@ -169,3 +169,9 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 . $(brew --prefix)/etc/profile.d/z.sh
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+alias k=kubectl
+
+# export LIBTORCH=$HOME/work/vnk-arkistoassistentti-sow1/src/backend_v2/libtorch/libtorch
+# export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+export LIBTORCH_USE_PYTORCH=1
