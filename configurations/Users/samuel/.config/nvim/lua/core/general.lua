@@ -2,7 +2,6 @@ vim.opt.shell = "zsh"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.tabstop = 2
-vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.cursorline = true
@@ -38,3 +37,10 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_animation_length = 0.02
 	vim.g.neovide_hide_mouse_when_typing = true
 end
+
+vim.cmd([[
+  autocmd BufEnter *.py :setlocal shiftwidth=4
+]])
+vim.cmd([[
+  autocmd BufEnter *.go :setlocal shiftwidth=2
+]])

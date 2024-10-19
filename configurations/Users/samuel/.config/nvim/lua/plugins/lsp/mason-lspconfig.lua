@@ -1,7 +1,7 @@
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"pyright",
-		"tsserver",
+		-- "tsserver",
 		"html",
 		"cssls",
 		"lua_ls",
@@ -10,6 +10,7 @@ require("mason-lspconfig").setup({
 		"gopls",
 		"bashls",
 		"rust_analyzer",
+		"tailwindcss",
 	},
 	automatic_installation = false,
 })

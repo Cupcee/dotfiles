@@ -7,18 +7,6 @@ if not lspconfig_status then
 	return
 end
 
--- import cmp-nvim-lsp plugin safely
-local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_nvim_lsp_status then
-	return
-end
-
--- import typescript plugin safely
-local typescript_setup, typescript = pcall(require, "typescript")
-if not typescript_setup then
-	return
-end
-
 -- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
 	-- keybind options
@@ -47,9 +35,6 @@ local on_attach = function(client, bufnr)
 	end
 end
 
--- used to enable autocompletion (assign to every lsp server config)
-local capabilities = cmp_nvim_lsp.default_capabilities()
-
 -- Change the Diagnostic symbols in the sign column (gutter)
 local signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = " " }
 for type, icon in pairs(signs) do
@@ -68,53 +53,19 @@ local lsp_servers = {
 	"bashls",
 	"rust_analyzer",
 	"sqlls",
-}
-
-local custom_lsp_servers = {
-	-- spectral = {
-	-- 	cmd = { "spectral", "--stdio" },
-	-- 	filetypes = { "yaml", "json", "yml" },
-	-- 	root_dir = lspconfig.util.root_pattern(
-	-- 		".spectral.yaml",
-	-- 		".spectral.yml",
-	-- 		".spectral.json",
-	-- 		".spectral.js",
-	-- 		"schema/*.yaml" -- for regent
-	-- 	),
-	-- 	single_file_support = true,
-	-- 	settings = {
-	-- 		enable = true,
-	-- 		run = "onType",
-	-- 		validateLanguages = { "yaml", "json", "yml" },
-	-- 	},
-	-- },
+	"tailwindcss",
 }
 
 -- setup lsp servers that use default config
 for _, lsp_name in ipairs(lsp_servers) do
 	lspconfig[lsp_name].setup({
-		capabilities = capabilities,
 		on_attach = on_attach,
 	})
 end
 
--- setup custom lsp servers
-for lsp_name, lsp_config in pairs(custom_lsp_servers) do
-	lspconfig[lsp_name].setup(lsp_config)
-end
-
--- typescript is its own plugin
-typescript.setup({
-	server = {
-		capabilities = capabilities,
-		on_attach = on_attach,
-	},
-})
-
 -- setup gdscript
 lspconfig.gdscript.setup({
 	server = {
-		capabilities = capabilities,
 		on_attach = on_attach,
 	},
 })

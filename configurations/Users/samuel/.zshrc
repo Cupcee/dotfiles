@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -127,11 +127,11 @@ export LC_ALL=en_US.UTF-8
 export LANG="UTF-8"
 
 # pyenv settings
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init --path)"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/samuel/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/samuel/Downloads/google-cloud-sdk/path.zsh.inc'; fi
@@ -175,3 +175,7 @@ alias k=kubectl
 # export LIBTORCH=$HOME/work/vnk-arkistoassistentti-sow1/src/backend_v2/libtorch/libtorch
 # export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 export LIBTORCH_USE_PYTORCH=1
+
+[[ -s "/Users/samuel/.gvm/scripts/gvm" ]] && source "/Users/samuel/.gvm/scripts/gvm"
+
+export GOPATH="$HOME/.gvm/pkgsets/go1.21.0/global"; export GOROOT="$HOME/.gvm/gos/go1.21.0"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
