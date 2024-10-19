@@ -1,4 +1,4 @@
-vim.opt.shell = "zsh"
+vim.opt.shell = "fish"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.tabstop = 2

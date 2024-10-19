@@ -224,7 +224,7 @@ require("lazy").setup({
 								hl_group = ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel",
 								max_width = 45,
 							},
-							{ icon .. ctx.icon_gap },
+							-- { icon .. ctx.icon_gap },
 							{ ctx.kind },
 						}
 					end,
@@ -372,22 +372,34 @@ require("lazy").setup({
 		priority = 999,
 		name = "rose-pine",
 		config = function()
-			vim.cmd("colorscheme rose-pine")
+			-- vim.cmd("colorscheme rose-pine")
+		end,
+	},
+	{
+		"aliqyan-21/darkvoid.nvim",
+		enabled = true,
+		priority = 999,
+		config = function()
+			-- vim.cmd.colorscheme("darkvoid")
+			require("darkvoid").setup({
+				transparent = false,
+				glow = true,
+			})
 		end,
 	},
 	{
 		"nyoom-engineering/oxocarbon.nvim",
 		lazy = false,
-		enabled = false,
+		enabled = true,
 		priority = 1000,
 		init = function()
-			vim.cmd.colorscheme("oxocarbon") -- my favorite
+			-- vim.cmd.colorscheme("oxocarbon") -- my favorite
 		end,
 	},
 	{
 		"slugbyte/lackluster.nvim",
 		lazy = false,
-		enabled = false,
+		enabled = true,
 		priority = 1000,
 		init = function()
 			local lackluster = require("lackluster")
@@ -400,20 +412,31 @@ require("lazy").setup({
 					},
 				},
 			})
-			vim.cmd("colorscheme lackluster-hack") -- my favorite
+			-- vim.cmd("colorscheme lackluster-hack") -- my favorite
 			-- vim.cmd.colorscheme("lackluster-mint")
 		end,
 	},
 
 	{
 		"rebelot/kanagawa.nvim",
-		enabled = false,
+		enabled = true,
 		priority = 999,
 		config = function()
 			require("kanagawa").setup({
 				compile = true,
 			})
-			vim.cmd.colorscheme("kanagawa")
+			-- vim.cmd.colorscheme("kanagawa")
+		end,
+	},
+	{
+		"zaldih/themery.nvim",
+		enabled = true,
+		-- priority = 1000,
+		config = function()
+			require("themery").setup({
+				themes = { "kanagawa", "lackluster-hack", "oxocarbon", "darkvoid", "rose-pine" },
+				livePreview = true,
+			})
 		end,
 	},
 }, {
