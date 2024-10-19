@@ -124,13 +124,18 @@ require("lazy").setup({
 		end,
 	},
 
-	-- {
-	-- 	"lukas-reineke/indent-blankline.nvim",
-	-- 	event = "VeryLazy",
-	--    config = function()
-	--        require("ibl").setup()
-	--    end
-	-- },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		---@module "ibl"
+		---@type ibl.config
+		opts = {
+			scope = {
+				show_start = false,
+				show_end = false,
+			},
+		},
+	},
 
 	{
 		"windwp/nvim-autopairs",
@@ -197,7 +202,7 @@ require("lazy").setup({
 					max_height = 10,
 					border = vim.g.borderStyle,
 					-- selection = "auto_insert", -- PENDING https://github.com/Saghen/blink.cmp/issues/117
-					selection = "preselect",
+					selection = "manual",
 					cycle = { from_top = false }, -- cycle at bottom, but not at the top
 					draw = function(ctx)
 						-- https://github.com/Saghen/blink.cmp/blob/819b978328b244fc124cfcd74661b2a7f4259f4f/lua/blink/cmp/windows/autocomplete.lua#L285-L349
@@ -212,10 +217,6 @@ require("lazy").setup({
 							icon = "󰯸"
 						end
 
-						-- FIX highlight for Tokyonight
-						-- local iconHl = vim.g.colors_name:find("tokyonight") and "BlinkCmpKind"
-						-- 	or "BlinkCmpKind" .. ctx.kind
-
 						return {
 							{
 								" " .. ctx.item.label .. " ",
@@ -224,6 +225,7 @@ require("lazy").setup({
 								max_width = 45,
 							},
 							{ icon .. ctx.icon_gap },
+							{ ctx.kind },
 						}
 					end,
 				},
@@ -275,7 +277,7 @@ require("lazy").setup({
 
 	{
 		"stevearc/conform.nvim",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("conform.formatters.isort").args = {
 				"--stdout",
@@ -305,7 +307,7 @@ require("lazy").setup({
 
 	{
 		"mfussenegger/nvim-lint",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local plugin = require("lint")
 			local flake8 = plugin.linters.flake8
@@ -324,7 +326,7 @@ require("lazy").setup({
 
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("plugins.lsp.mason-lspconfig")
 		end,
@@ -332,7 +334,7 @@ require("lazy").setup({
 
 	{
 		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("plugins.lsp.lspconfig")
 			vim.o.updatetime = 250
