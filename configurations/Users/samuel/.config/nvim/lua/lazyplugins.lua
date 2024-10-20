@@ -33,20 +33,8 @@ require("lazy").setup({
 		build = ":TSUpdate",
 		config = function()
 			require("plugins.treesitter")
-			-- require("treesitter-context").setup()
 		end,
-		-- dependencies = {
-		-- 	"nvim-treesitter/nvim-treesitter-context",
-		-- },
 	},
-
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	event = "VeryLazy",
-	-- 	config = function()
-	-- 		require("plugins.copilot")
-	-- 	end,
-	-- },
 
 	{
 		"nvim-telescope/telescope.nvim",
@@ -72,9 +60,13 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		-- dependencies = { "kyazdani42/nvim-web-devicons" },
 		config = function()
-			require("plugins.lualine")
+			require("lualine").setup({
+				options = {
+					icons_enabled = false,
+				},
+			})
 		end,
 	},
 	{
@@ -82,16 +74,14 @@ require("lazy").setup({
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"kyazdani42/nvim-web-devicons",
+			-- "kyazdani42/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
-			-- "s1n7ax/nvim-window-picker",
 		},
 		cmd = { "Neotree" },
 		init = function()
 			vim.keymap.set("n", "<leader>op", ":Neotree position=current<CR>")
 		end,
 		config = function()
-			-- require("plugins.window-picker")
 			require("plugins.neotree")
 		end,
 	},
@@ -101,7 +91,7 @@ require("lazy").setup({
 		config = function()
 			require("plugins.dashboard")
 		end,
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		-- dependencies = { "kyazdani42/nvim-web-devicons" },
 	},
 
 	{
@@ -298,8 +288,8 @@ require("lazy").setup({
 				},
 				format_after_save = {
 					-- timeout_ms = 500,
-					async = true,
-					lsp_fallback = true,
+					lsp_format = "fallback",
+					timeout_ms = 500,
 				},
 			})
 		end,
@@ -349,6 +339,7 @@ require("lazy").setup({
 	{
 		"glepnir/lspsaga.nvim",
 		branch = "main",
+		enabled = true,
 		cmd = "Lspsaga",
 		config = function()
 			require("lspsaga").setup({
@@ -368,73 +359,33 @@ require("lazy").setup({
 
 	{
 		"rose-pine/neovim",
-		enabled = true,
-		priority = 999,
+		lazy = true,
+		cmd = { "Themery" },
 		name = "rose-pine",
-		config = function()
-			-- vim.cmd("colorscheme rose-pine")
-		end,
+		config = function() end,
 	},
 	{
 		"aliqyan-21/darkvoid.nvim",
-		enabled = true,
-		priority = 999,
-		config = function()
-			-- vim.cmd.colorscheme("darkvoid")
-			require("darkvoid").setup({
-				transparent = false,
-				glow = true,
-			})
-		end,
-	},
-	{
-		"nyoom-engineering/oxocarbon.nvim",
 		lazy = false,
-		enabled = true,
 		priority = 1000,
-		init = function()
-			-- vim.cmd.colorscheme("oxocarbon") -- my favorite
-		end,
-	},
-	{
-		"slugbyte/lackluster.nvim",
-		lazy = false,
-		enabled = true,
-		priority = 1000,
-		init = function()
-			local lackluster = require("lackluster")
-			require("nvim-web-devicons").setup({
-				color_icons = false,
-				override = {
-					["default_icon"] = {
-						color = lackluster.color.gray4,
-						name = "Default",
-					},
-				},
-			})
-			-- vim.cmd("colorscheme lackluster-hack") -- my favorite
-			-- vim.cmd.colorscheme("lackluster-mint")
-		end,
-	},
-
-	{
-		"rebelot/kanagawa.nvim",
-		enabled = true,
-		priority = 999,
 		config = function()
-			require("kanagawa").setup({
-				compile = true,
-			})
-			-- vim.cmd.colorscheme("kanagawa")
+			-- require("darkvoid").setup({
+			-- 	transparent = false,
+			-- 	glow = true,
+			-- })
+			vim.cmd.colorscheme("darkvoid")
 		end,
 	},
 	{
 		"zaldih/themery.nvim",
-		enabled = true,
-		-- priority = 1000,
+		lazy = true,
+		cmd = { "Themery" },
 		config = function()
 			require("themery").setup({
-				themes = { "kanagawa", "lackluster-hack", "oxocarbon", "darkvoid", "rose-pine" },
+				themes = {
+					"darkvoid",
+					"rose-pine",
+				},
 				livePreview = true,
 			})
 		end,

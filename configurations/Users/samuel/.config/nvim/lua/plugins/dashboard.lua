@@ -20,4 +20,5 @@ theme.header.val = {
 	[[]],
 }
 
+theme.file_icons.enabled = false
 alpha.setup(theme.config)
