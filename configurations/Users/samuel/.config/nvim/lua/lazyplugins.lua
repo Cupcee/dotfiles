@@ -60,11 +60,11 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		event = "VeryLazy",
-		-- dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "kyazdani42/nvim-web-devicons" },
 		config = function()
 			require("lualine").setup({
 				options = {
-					icons_enabled = false,
+					icons_enabled = true,
 				},
 			})
 		end,
@@ -74,7 +74,7 @@ require("lazy").setup({
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			-- "kyazdani42/nvim-web-devicons",
+			"kyazdani42/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
 		cmd = { "Neotree" },
@@ -91,7 +91,7 @@ require("lazy").setup({
 		config = function()
 			require("plugins.dashboard")
 		end,
-		-- dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "kyazdani42/nvim-web-devicons" },
 	},
 
 	{
@@ -359,15 +359,18 @@ require("lazy").setup({
 
 	{
 		"rose-pine/neovim",
-		lazy = true,
-		cmd = { "Themery" },
+		lazy = false,
+		priority = 1000,
 		name = "rose-pine",
-		config = function() end,
+		config = function()
+			vim.cmd.colorscheme("rose-pine")
+		end,
 	},
 	{
 		"aliqyan-21/darkvoid.nvim",
-		lazy = false,
-		priority = 1000,
+		-- lazy = false,
+		enabled = false,
+		-- priority = 1000,
 		config = function()
 			-- require("darkvoid").setup({
 			-- 	transparent = false,
@@ -376,20 +379,20 @@ require("lazy").setup({
 			vim.cmd.colorscheme("darkvoid")
 		end,
 	},
-	{
-		"zaldih/themery.nvim",
-		lazy = true,
-		cmd = { "Themery" },
-		config = function()
-			require("themery").setup({
-				themes = {
-					"darkvoid",
-					"rose-pine",
-				},
-				livePreview = true,
-			})
-		end,
-	},
+	-- {
+	-- 	"zaldih/themery.nvim",
+	-- 	lazy = true,
+	-- 	cmd = { "Themery" },
+	-- 	config = function()
+	-- 		require("themery").setup({
+	-- 			themes = {
+	-- 				"darkvoid",
+	-- 				"rose-pine",
+	-- 			},
+	-- 			livePreview = true,
+	-- 		})
+	-- 	end,
+	-- },
 }, {
 	performance = {
 		rtp = {
