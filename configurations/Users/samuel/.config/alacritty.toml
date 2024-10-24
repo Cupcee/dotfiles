@@ -3,8 +3,8 @@ program = "/opt/homebrew/bin/fish"
 
 [font]
 # normal = { family = "Terminus" }
-normal = { family = "Terminess Nerd Font Mono" }
-# normal = { family = "Hack Nerd Font Mono" }
+# normal = { family = "Terminess Nerd Font Mono" }
+normal = { family = "Hack Nerd Font Mono" }
 # normal = { family = "Iosevka Nerd Font Mono" }
 
 # LACKLUSTER COLORS

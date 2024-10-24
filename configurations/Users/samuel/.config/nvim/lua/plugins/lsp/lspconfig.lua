@@ -54,6 +54,7 @@ local lsp_servers = {
 	"rust_analyzer",
 	"sqlls",
 	"tailwindcss",
+	"ts_ls",
 }
 
 -- setup lsp servers that use default config

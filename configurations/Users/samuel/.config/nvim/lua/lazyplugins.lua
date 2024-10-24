@@ -113,6 +113,20 @@ require("lazy").setup({
 			end)
 		end,
 	},
+	{
+		"folke/zen-mode.nvim",
+		lazy = true,
+		cmd = { "ZenMode" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			window = {
+				width = 160,
+				height = 1,
+			},
+		},
+	},
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -283,6 +297,8 @@ require("lazy").setup({
 					python = { "isort", "black" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
+					javascriptreact = { "prettier" },
+					typescriptreact = { "prettier" },
 					go = { "gofmt" },
 					rust = { "rustfmt" },
 				},

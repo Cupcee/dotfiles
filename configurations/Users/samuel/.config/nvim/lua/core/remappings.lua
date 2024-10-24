@@ -61,3 +61,5 @@ if vim.g.neovide then
 end
 
 vim.keymap.set("n", "<leader>l", "<cmd>:Lazy<cr>")
+
+vim.keymap.set("n", "<leader>z", "<cmd>:ZenMode<cr>")
