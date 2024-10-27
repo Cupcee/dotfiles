@@ -283,18 +283,18 @@ require("lazy").setup({
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require("conform.formatters.isort").args = {
-				"--stdout",
-				"--filename",
-				"$FILENAME",
-				"-",
-				"--profile",
-				"black",
-			}
+			-- require("conform.formatters.isort").args = {
+			-- 	"--stdout",
+			-- 	"--filename",
+			-- 	"$FILENAME",
+			-- 	"-",
+			-- 	"--profile",
+			-- 	"black",
+			-- }
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					python = { "isort", "black" },
+					-- python = { "isort", "black" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
 					javascriptreact = { "prettier" },
@@ -316,10 +316,10 @@ require("lazy").setup({
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local plugin = require("lint")
-			local flake8 = plugin.linters.flake8
-			flake8.args = vim.tbl_flatten({ flake8.args, { "--max-line-length=88", "--extend-ignore=E203" } })
+			-- local flake8 = plugin.linters.flake8
+			-- flake8.args = vim.tbl_flatten({ flake8.args, { "--max-line-length=88", "--extend-ignore=E203" } })
 			plugin.linters_by_ft = {
-				python = { "flake8" },
+				-- python = { "flake8" },
 				markdown = { "markdownlint" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {

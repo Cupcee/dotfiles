@@ -7,7 +7,6 @@ if not lspconfig_status then
 	return
 end
 
--- enable keybinds only for when lsp server available
 local on_attach = function(client, bufnr)
 	-- keybind options
 	local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -33,10 +32,14 @@ local on_attach = function(client, bufnr)
 		vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
 		vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
 	end
+	if client.name == "ruff" then
+		-- Disable hover in favor of Pyright
+		client.server_capabilities.hoverProvider = false
+	end
 end
 
 -- Change the Diagnostic symbols in the sign column (gutter)
-local signs = { Error = " ", Warn = " ", Hint = "ﴞ ", Info = " " }
+local signs = { Error = " ", Warn = " ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -55,18 +58,31 @@ local lsp_servers = {
 	"sqlls",
 	"tailwindcss",
 	"ts_ls",
+	"ruff",
 }
 
 -- setup lsp servers that use default config
 for _, lsp_name in ipairs(lsp_servers) do
-	lspconfig[lsp_name].setup({
-		on_attach = on_attach,
-	})
+	-- for pyright, disable some of the features, use ruff instead
+	if lsp_name == "pyright" then
+		lspconfig[lsp_name].setup({
+			on_attach = on_attach,
+			settings = {
+				pyright = {
+					-- use ruff import organizer
+					disableOrganizeImports = true,
+				},
+				python = {
+					analysis = {
+						-- ignore all files for analysis, use ruff instead for linting
+						ignore = { "*" },
+					},
+				},
+			},
+		})
+	else
+		lspconfig[lsp_name].setup({
+			on_attach = on_attach,
+		})
+	end
 end
-
--- setup gdscript
-lspconfig.gdscript.setup({
-	server = {
-		on_attach = on_attach,
-	},
-})
