@@ -32,10 +32,6 @@ local on_attach = function(client, bufnr)
 		vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
 		vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
 	end
-	if client.name == "ruff" then
-		-- Disable hover in favor of Pyright
-		client.server_capabilities.hoverProvider = false
-	end
 end
 
 -- Change the Diagnostic symbols in the sign column (gutter)
@@ -58,7 +54,7 @@ local lsp_servers = {
 	"sqlls",
 	"tailwindcss",
 	"ts_ls",
-	"ruff",
+	-- "ruff", -- we use ruff via conform.nvim instead
 }
 
 -- setup lsp servers that use default config

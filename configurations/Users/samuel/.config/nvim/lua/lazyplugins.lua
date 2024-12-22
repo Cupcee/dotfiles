@@ -101,7 +101,11 @@ require("lazy").setup({
 		event = "BufReadPost",
 		config = function()
 			local tdc = require("todo-comments")
-			tdc.setup()
+			tdc.setup({
+				highlight = {
+					multiline = false,
+				},
+			})
 			vim.keymap.set("n", "<leader>tf", ":TodoQuickFix<CR>")
 			vim.keymap.set("n", "<leader>tl", ":TodoLocList<CR>")
 			vim.keymap.set("n", "<leader>tt", ":TodoTelescope<CR>")
@@ -151,117 +155,45 @@ require("lazy").setup({
 
 	{
 		"saghen/blink.cmp",
-		lazy = false, -- lazy loading handled internally
 		-- optional: provides snippets for the snippet source
 		dependencies = "rafamadriz/friendly-snippets",
 
 		-- use a release tag to download pre-built binaries
-		version = "v0.*",
-		-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-		-- build = 'cargo build --release',
-		-- If you use nix, you can build from source using latest nightly rust with:
-		-- build = 'nix run .#build-plugin',
+		version = "*",
 
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
 			keymap = {
-				show = "<D-c>",
-				hide = "<S-CR>",
-				accept = "<CR>",
-				select_next = { "<Tab>", "<Down>" },
-				select_prev = { "<S-Tab>", "<Up>" },
-				scroll_documentation_down = "<PageDown>",
-				scroll_documentation_up = "<PageUp>",
+				preset = "enter",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
 			},
-			highlight = {
-				-- sets the fallback highlight groups to nvim-cmp's highlight groups
-				-- useful for when your theme doesn't support blink.cmp
-				-- will be removed in a future release, assuming themes add support
+			appearance = {
 				use_nvim_cmp_as_default = true,
+				nerd_font_variant = "mono",
 			},
-			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-			-- adjusts spacing to ensure icons are aligned
-			nerd_font_variant = "mono",
-
-			-- experimental auto-brackets support
-			accept = { auto_brackets = { enabled = true } },
-
-			-- experimental signature help support
-			trigger = { signature_help = { enabled = true } },
-			documentation = {
-				auto_show = true,
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
 			},
-			windows = {
-				documentation = {
-					min_width = 15,
-					max_width = 50,
-					max_height = 15,
-					border = vim.g.borderStyle,
-					auto_show = true,
-					auto_show_delay_ms = 200,
+			completion = {
+				accept = {
+					create_undo_point = true,
+					auto_brackets = {
+						enabled = true,
+					},
 				},
-				autocomplete = {
-					min_width = 10,
-					max_height = 10,
-					border = vim.g.borderStyle,
-					-- selection = "auto_insert", -- PENDING https://github.com/Saghen/blink.cmp/issues/117
+				list = {
 					selection = "manual",
-					cycle = { from_top = false }, -- cycle at bottom, but not at the top
-					draw = function(ctx)
-						-- https://github.com/Saghen/blink.cmp/blob/819b978328b244fc124cfcd74661b2a7f4259f4f/lua/blink/cmp/windows/autocomplete.lua#L285-L349
-						-- differentiate LSP snippets from user snippets and emmet snippets
-						local icon, source = ctx.kind_icon, ctx.item.source
-						local client = source == "LSP" and vim.lsp.get_client_by_id(ctx.item.client_id).name
-						if source == "Snippets" or (client == "basics_ls" and ctx.kind == "Snippet") then
-							icon = "󰩫"
-						elseif source == "Buffer" or (client == "basics_ls" and ctx.kind == "Text") then
-							icon = "󰦨"
-						elseif client == "emmet_language_server" then
-							icon = "󰯸"
-						end
-
-						return {
-							{
-								" " .. ctx.item.label .. " ",
-								fill = true,
-								hl_group = ctx.deprecated and "BlinkCmpLabelDeprecated" or "BlinkCmpLabel",
-								max_width = 45,
-							},
-							-- { icon .. ctx.icon_gap },
-							{ ctx.kind },
-						}
-					end,
+				},
+				documentation = {
+					auto_show = true,
 				},
 			},
-			kind_icons = {
-				Text = "󰊄",
-				Method = "󰊕",
-				Function = "󰊕",
-				Constructor = "",
-				Field = "󰇽",
-				Variable = "󰂡",
-				Class = "⬟",
-				Interface = "",
-				Module = "",
-				Property = "󰜢",
-				Unit = "",
-				Value = "󰎠",
-				Enum = "",
-				Keyword = "󰌋",
-				Snippet = "󰒕",
-				Color = "󰏘",
-				Reference = "",
-				File = "󰉋",
-				Folder = "󰉋",
-				EnumMember = "",
-				Constant = "󰏿",
-				Struct = "",
-				Event = "",
-				Operator = "󰆕",
-				TypeParameter = "󰅲",
-			},
+
+			signature = { enabled = true },
 		},
+		opts_extend = { "sources.default" },
 	},
 
 	{
@@ -294,13 +226,34 @@ require("lazy").setup({
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					-- python = { "isort", "black" },
+					python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
 					javascriptreact = { "prettier" },
 					typescriptreact = { "prettier" },
 					go = { "gofmt" },
-					rust = { "rustfmt" },
+					rust = { "rustfmt", lsp_format = "fallback" },
+				},
+				formatters = {
+					ruff_organize_imports = {
+						command = "ruff",
+						args = {
+							"check",
+							"--force-exclude",
+							"--select=I001",
+							"--fix",
+							"--exit-zero",
+							"--stdin-filename",
+							"$FILENAME",
+							"-",
+						},
+						stdin = true,
+						-- cwd = require("conform.util").root_file({
+						-- 	"pyproject.toml",
+						-- 	"ruff.toml",
+						-- 	".ruff.toml",
+						-- }),
+					},
 				},
 				format_after_save = {
 					-- timeout_ms = 500,

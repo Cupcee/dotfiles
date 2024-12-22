@@ -44,3 +44,6 @@ vim.cmd([[
 vim.cmd([[
   autocmd BufEnter *.go :setlocal shiftwidth=2
 ]])
+vim.cmd([[
+  autocmd BufEnter *.lua :setlocal shiftwidth=2
+]])
