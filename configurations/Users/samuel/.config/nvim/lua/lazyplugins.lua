@@ -248,14 +248,9 @@ require("lazy").setup({
 							"-",
 						},
 						stdin = true,
-						-- cwd = require("conform.util").root_file({
-						-- 	"pyproject.toml",
-						-- 	"ruff.toml",
-						-- 	".ruff.toml",
-						-- }),
 					},
 				},
-				format_after_save = {
+				format_on_save = {
 					-- timeout_ms = 500,
 					lsp_format = "fallback",
 					timeout_ms = 500,
@@ -269,10 +264,7 @@ require("lazy").setup({
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local plugin = require("lint")
-			-- local flake8 = plugin.linters.flake8
-			-- flake8.args = vim.tbl_flatten({ flake8.args, { "--max-line-length=88", "--extend-ignore=E203" } })
 			plugin.linters_by_ft = {
-				-- python = { "flake8" },
 				markdown = { "markdownlint" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {

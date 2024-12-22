@@ -54,7 +54,7 @@ local lsp_servers = {
 	"sqlls",
 	"tailwindcss",
 	"ts_ls",
-	-- "ruff", -- we use ruff via conform.nvim instead
+	"ruff",
 }
 
 -- setup lsp servers that use default config
