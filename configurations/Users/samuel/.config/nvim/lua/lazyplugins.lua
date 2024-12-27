@@ -274,6 +274,16 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"Goose97/timber.nvim",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("timber").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	},
 
 	{
 		"williamboman/mason-lspconfig.nvim",
@@ -318,26 +328,32 @@ require("lazy").setup({
 
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
+	-- {
+	-- 	"rose-pine/neovim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	name = "rose-pine",
+	-- 	config = function()
+	-- 		vim.cmd.colorscheme("rose-pine")
+	-- 	end,
+	-- },
 	{
-		"rose-pine/neovim",
-		lazy = false,
-		priority = 1000,
-		name = "rose-pine",
-		config = function()
-			vim.cmd.colorscheme("rose-pine")
-		end,
-	},
-	{
-		"aliqyan-21/darkvoid.nvim",
+		"ramojus/mellifluous.nvim",
 		-- lazy = false,
-		enabled = false,
+		enabled = true,
 		-- priority = 1000,
 		config = function()
 			-- require("darkvoid").setup({
 			-- 	transparent = false,
 			-- 	glow = true,
 			-- })
-			vim.cmd.colorscheme("darkvoid")
+			require("mellifluous").setup({
+				colorset = "mountain",
+				transparent_background = {
+					enabled = true,
+				},
+			})
+			vim.cmd.colorscheme("mellifluous")
 		end,
 	},
 	-- {
