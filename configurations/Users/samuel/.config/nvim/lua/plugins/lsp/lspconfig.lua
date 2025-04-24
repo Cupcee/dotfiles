@@ -55,6 +55,7 @@ local lsp_servers = {
 	"tailwindcss",
 	"ts_ls",
 	"ruff",
+	"zls",
 }
 
 -- setup lsp servers that use default config
@@ -63,6 +64,7 @@ for _, lsp_name in ipairs(lsp_servers) do
 	if lsp_name == "pyright" then
 		lspconfig[lsp_name].setup({
 			on_attach = on_attach,
+			filetypes = { "python", "snakemake" },
 			settings = {
 				pyright = {
 					-- use ruff import organizer

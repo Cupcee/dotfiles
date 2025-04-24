@@ -11,6 +11,7 @@ require("mason-lspconfig").setup({
 		"bashls",
 		"rust_analyzer",
 		"tailwindcss",
+		"zls",
 	},
 	automatic_installation = false,
 })

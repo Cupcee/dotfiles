@@ -30,14 +30,6 @@ vim.cmd([[
   au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=200}
 ]])
 
--- neovide options
-if vim.g.neovide then
-	-- vim.g.neovide_cursor_vfx_mode = "railgun"
-	vim.opt.guifont = "FiraCode Nerd Font:h20"
-	vim.g.neovide_cursor_animation_length = 0.02
-	vim.g.neovide_hide_mouse_when_typing = true
-end
-
 vim.cmd([[
   autocmd BufEnter *.py :setlocal shiftwidth=4
 ]])
@@ -47,3 +39,17 @@ vim.cmd([[
 vim.cmd([[
   autocmd BufEnter *.lua :setlocal shiftwidth=2
 ]])
+vim.cmd([[
+  autocmd BufEnter Snakefile :set filetype=snakemake
+]])
+
+-- neovide options
+if vim.g.neovide then
+	vim.g.neovide_hide_mouse_when_typing = true
+	vim.g.neovide_cursor_animation_length = 0.02
+	vim.g.neovide_cursor_trail_size = 0
+	vim.g.neovide_cursor_animate_in_insert_mode = true
+	vim.g.neovide_cursor_animate_command_line = true
+	vim.g.neovide_scroll_animation_far_lines = 1
+	vim.g.neovide_scroll_animation_length = 0.00
+end

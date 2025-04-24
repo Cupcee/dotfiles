@@ -184,7 +184,10 @@ require("lazy").setup({
 					},
 				},
 				list = {
-					selection = "manual",
+					selection = {
+						auto_insert = false,
+						preselect = false,
+					},
 				},
 				documentation = {
 					auto_show = true,
@@ -330,6 +333,7 @@ require("lazy").setup({
 
 	-- {
 	-- 	"rose-pine/neovim",
+	-- 	enabled = false,
 	-- 	lazy = false,
 	-- 	priority = 1000,
 	-- 	name = "rose-pine",
@@ -337,39 +341,31 @@ require("lazy").setup({
 	-- 		vim.cmd.colorscheme("rose-pine")
 	-- 	end,
 	-- },
+	-- {
+	-- 	"iruzo/matrix-nvim",
+	--
+	-- 	config = function()
+	-- 		-- require("darkvoid").setup({
+	-- 		-- 	transparent = false,
+	-- 		-- 	glow = true,
+	-- 		-- })
+	-- 		vim.cmd.colorscheme("matrix")
+	-- 	end,
+	-- },
 	{
-		"ramojus/mellifluous.nvim",
-		-- lazy = false,
+		"Mofiqul/vscode.nvim",
 		enabled = true,
-		-- priority = 1000,
+		lazy = false,
+		priority = 1000,
 		config = function()
 			-- require("darkvoid").setup({
 			-- 	transparent = false,
 			-- 	glow = true,
 			-- })
-			require("mellifluous").setup({
-				colorset = "mountain",
-				transparent_background = {
-					enabled = true,
-				},
-			})
-			vim.cmd.colorscheme("mellifluous")
+			-- vim.o.background = "light"
+			vim.cmd.colorscheme("vscode")
 		end,
 	},
-	-- {
-	-- 	"zaldih/themery.nvim",
-	-- 	lazy = true,
-	-- 	cmd = { "Themery" },
-	-- 	config = function()
-	-- 		require("themery").setup({
-	-- 			themes = {
-	-- 				"darkvoid",
-	-- 				"rose-pine",
-	-- 			},
-	-- 			livePreview = true,
-	-- 		})
-	-- 	end,
-	-- },
 }, {
 	performance = {
 		rtp = {

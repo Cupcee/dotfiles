@@ -152,7 +152,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 function nvimvenv {
   if [[ -e "$VIRTUAL_ENV" && -f "$VIRTUAL_ENV/bin/activate" ]]; then
-    source "$VIRTUAL_ENV/bin/activate"
+# source "$VIRTUAL_ENV/bin/activate"  # commented out by conda initialize
     command nvim "$@"
     # deactivate
   else
@@ -179,3 +179,19 @@ export LIBTORCH_USE_PYTORCH=1
 [[ -s "/Users/samuel/.gvm/scripts/gvm" ]] && source "/Users/samuel/.gvm/scripts/gvm"
 
 export GOPATH="$HOME/.gvm/pkgsets/go1.21.0/global"; export GOROOT="$HOME/.gvm/gos/go1.21.0"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
