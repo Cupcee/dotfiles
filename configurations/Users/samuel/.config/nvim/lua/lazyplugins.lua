@@ -300,9 +300,12 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require("plugins.lsp.lspconfig")
-			vim.o.updatetime = 250
-			vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+			-- require("plugins.lsp.lspconfig")
+			-- vim.o.updatetime = 250
+			-- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+			local opts = { noremap = true, silent = true }
+			vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts) -- go to definition
+			vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
 		end,
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
@@ -310,6 +313,7 @@ require("lazy").setup({
 			"jose-elias-alvarez/typescript.nvim",
 		},
 	},
+
 	{
 		"glepnir/lspsaga.nvim",
 		branch = "main",
@@ -328,6 +332,12 @@ require("lazy").setup({
 			})
 		end,
 	},
+	-- {
+	-- 	"rmagatti/goto-preview",
+	-- 	dependencies = { "rmagatti/logger.nvim" },
+	-- 	event = "BufEnter",
+	-- 	config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+	-- },
 
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
@@ -362,7 +372,7 @@ require("lazy").setup({
 			-- 	transparent = false,
 			-- 	glow = true,
 			-- })
-			-- vim.o.background = "light"
+			vim.o.background = "dark"
 			vim.cmd.colorscheme("vscode")
 		end,
 	},
