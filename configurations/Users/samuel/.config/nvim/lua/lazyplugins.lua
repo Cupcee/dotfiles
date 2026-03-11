@@ -9,8 +9,8 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
-vim.opt.runtimepath:prepend(lazypath)
 
+vim.opt.runtimepath:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup({
@@ -218,18 +218,14 @@ require("lazy").setup({
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			-- require("conform.formatters.isort").args = {
-			-- 	"--stdout",
-			-- 	"--filename",
-			-- 	"$FILENAME",
-			-- 	"-",
-			-- 	"--profile",
-			-- 	"black",
-			-- }
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+					python = {
+						"ruff_fix",
+						"ruff_format",
+						"ruff_organize_imports",
+					},
 					javascript = { "prettier" },
 					typescript = { "prettier" },
 					javascriptreact = { "prettier" },
@@ -254,7 +250,6 @@ require("lazy").setup({
 					},
 				},
 				format_on_save = {
-					-- timeout_ms = 500,
 					lsp_format = "fallback",
 					timeout_ms = 500,
 				},
@@ -277,16 +272,6 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{
-		"Goose97/timber.nvim",
-		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		event = "VeryLazy",
-		config = function()
-			require("timber").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
-	},
 
 	{
 		"williamboman/mason-lspconfig.nvim",
@@ -300,12 +285,10 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			-- require("plugins.lsp.lspconfig")
-			-- vim.o.updatetime = 250
-			-- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 			local opts = { noremap = true, silent = true }
 			vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts) -- go to definition
 			vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
+			vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 		end,
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
@@ -332,48 +315,43 @@ require("lazy").setup({
 			})
 		end,
 	},
-	-- {
-	-- 	"rmagatti/goto-preview",
-	-- 	dependencies = { "rmagatti/logger.nvim" },
-	-- 	event = "BufEnter",
-	-- 	config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
-	-- },
 
 	{ "mechatroner/rainbow_csv", ft = { "csv" } },
 
 	-- {
-	-- 	"rose-pine/neovim",
-	-- 	enabled = false,
+	-- 	"Mofiqul/vscode.nvim",
+	-- 	enabled = true,
 	-- 	lazy = false,
 	-- 	priority = 1000,
-	-- 	name = "rose-pine",
 	-- 	config = function()
-	-- 		vim.cmd.colorscheme("rose-pine")
-	-- 	end,
-	-- },
-	-- {
-	-- 	"iruzo/matrix-nvim",
-	--
-	-- 	config = function()
-	-- 		-- require("darkvoid").setup({
-	-- 		-- 	transparent = false,
-	-- 		-- 	glow = true,
-	-- 		-- })
-	-- 		vim.cmd.colorscheme("matrix")
+	-- 		vim.o.background = "dark"
+	-- 		vim.cmd.colorscheme("vscode")
 	-- 	end,
 	-- },
 	{
-		"Mofiqul/vscode.nvim",
-		enabled = true,
-		lazy = false,
-		priority = 1000,
+		"everviolet/nvim",
+		name = "evergarden",
+		priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+		opts = {
+			theme = {
+				variant = "spring", -- 'winter'|'fall'|'spring'|'summer'
+				accent = "green",
+			},
+			editor = {
+				transparent_background = false,
+				sign = { color = "none" },
+				float = {
+					color = "mantle",
+					invert_border = false,
+				},
+				completion = {
+					color = "surface0",
+				},
+			},
+		},
 		config = function()
-			-- require("darkvoid").setup({
-			-- 	transparent = false,
-			-- 	glow = true,
-			-- })
-			vim.o.background = "dark"
-			vim.cmd.colorscheme("vscode")
+			-- vim.o.background = "light"
+			vim.cmd.colorscheme("evergarden")
 		end,
 	},
 }, {

@@ -1,6 +1,6 @@
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"pyright",
+		"basedpyright",
 		-- "tsserver",
 		"html",
 		"cssls",

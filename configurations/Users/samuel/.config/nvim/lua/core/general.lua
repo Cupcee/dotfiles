@@ -14,6 +14,7 @@ vim.opt.smartindent = true
 vim.opt.signcolumn = "yes"
 vim.opt.termguicolors = true
 -- vim.opt.cmdheight = 0
+vim.opt.shiftwidth = 2
 vim.opt.wrap = true
 vim.cmd("autocmd FileType * set formatoptions-=cro")
 
