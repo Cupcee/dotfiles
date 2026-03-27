@@ -1,7 +1,7 @@
 -- django template support
 vim.treesitter.language.register("htmldjango", "html")
 
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter.config").setup({
 	-- A list of parser names, or "all"
 	ensure_installed = {
 		"python",
@@ -11,7 +11,6 @@ require("nvim-treesitter.configs").setup({
 		"typescript",
 		"html",
 		"css",
-		"lua",
 		"json",
 		"yaml",
 		"toml",
@@ -40,7 +39,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		disable = function(_, buf)
 			local max_filesize = 100 * 1024 -- 100 KB
-			local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+			local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
 			if ok and stats and stats.size > max_filesize then
 				return true
 			end
@@ -55,14 +54,5 @@ require("nvim-treesitter.configs").setup({
 	indent = {
 		enable = true,
 		disable = { "python" },
-	},
-	textsubjects = {
-		enable = true,
-		prev_selection = ",", -- (Optional) keymap to select the previous selection
-		keymaps = {
-			["."] = "textsubjects-smart",
-			[";"] = "textsubjects-container-outer",
-			["i;"] = "textsubjects-container-inner",
-		},
 	},
 })
